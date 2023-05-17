@@ -1,42 +1,30 @@
-import { createContext, ReactNode, useState } from 'react';
+import { 
+    createContext, ReactNode, useEffect, useState, useContext
+} from 'react';
+import authService, { UserAuth } from '../services/auth-service';
 
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  accessToken?: string;
-  refreshToken?: string;
-}
 
-interface AuthProps {
-  user: User | null;
-  setUser: (user: User | null) => void;
-  persist: boolean | null;
-  setPersist: (persist: boolean | null) => void;
-}
-
-const AuthContext = createContext<AuthProps>({
-  user: null,
-  setUser: () => {}, // eslint-disable-line
-  persist: null,
-  setPersist: () => false, // eslint-disable-line
-});
+const AuthContext = createContext<UserAuth | null>(null);
 
 interface CurrentUserProviderProps {
   children: ReactNode;
 }
 
 export const AuthProvider = ({ children }: CurrentUserProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [persist, setPersist] = useState(
-    JSON.parse(localStorage.getItem('persist')) || false,
-  );
-
-  return (
-    <AuthContext.Provider value={{ user, setUser, persist, setPersist }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export default AuthContext;
+    const [user, setUser] = useState<UserAuth | null>(authService.storedUser);
+  
+    useEffect(() => {
+      authService.changeHandler = setUser;
+      return () => { authService.changeHandler = null; };
+    });
+  
+    return (
+      <AuthContext.Provider value={user}>
+        {children}
+      </AuthContext.Provider>
+    );
+  }
+  
+  export default function useCurrentUser() {
+    return useContext(AuthContext);
+  }

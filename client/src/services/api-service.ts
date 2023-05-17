@@ -1,6 +1,6 @@
 import axios from 'axios';
-import useAuth from '../hooks/useAuth';
 import 'dotenv/config';
+import authService from './auth-service';
 
 class ApiService {
     private baseUrl: string;
@@ -10,7 +10,7 @@ class ApiService {
     }
 
     async get<T>(path: string) {
-      const user = useAuth().user;
+      const user = authService.storedUser;
       return axios.get<T>(`${this.baseUrl}/${path}`, {
         method: `GET`,
         headers: {
@@ -19,20 +19,21 @@ class ApiService {
       });
     }
 
-    async post<T>(path: string) {
-      const user = useAuth().user;
+    async post<T>(path: string, body: {[key: string]: any }) {
+      const user = authService.storedUser;
       return axios.post<T>(`${this.baseUrl}/${path}`, {
         method: `POST`,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
           'Authorization' : user ? `Bearer ${user.accessToken}` : null,
-        }
+        },
+        body: JSON.stringify(body),
       });
     }
 
     async delete<T>(path: string) {
-      const user = useAuth().user;
+      const user = authService.storedUser;
       return axios.delete<T>(`${this.baseUrl}/${path}`, {
         method: `DELETE`,
         headers: {
