@@ -1,5 +1,5 @@
 import axios from 'axios';
-import 'dotenv/config';
+//import 'dotenv/config';
 import authService from './auth-service';
 
 class ApiService {
@@ -43,5 +43,6 @@ class ApiService {
     }
 }
 
-const apiService = new ApiService(process.env.REACT_APP_BASE_URL);
+const apiService = new ApiService('something');
+//process.env.REACT_APP_BASE_URL
 export default apiService;
