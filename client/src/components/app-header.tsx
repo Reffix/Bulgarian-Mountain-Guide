@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import useCurrentUser from "../context/auth-context";
 import authService from "../services/auth-service";
-import Logo from '../resources/logo2.svg'
-import { SvgIcon } from "@mui/material";
+import Logo from '../resources/logo.svg'
 
 const useStyles = makeStyles((theme) => ({
     login:{
