@@ -1,18 +1,11 @@
-import { makeStyles, AppBar, Toolbar, Box, Typography, IconButton, Avatar, Menu, MenuItem, Button,} from '@material-ui/core';
+import { makeStyles, AppBar, Toolbar, Box, Typography, IconButton, Avatar, Menu, MenuItem, Button, } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import useCurrentUser from '../context/auth-context';
 import authService from '../services/auth-service';
 import { Mountains } from '../enums/Mountains';
 import Logo from '../resources/logo.svg';
-import BungalowIcon from '@mui/icons-material/Bungalow';
-import HotelIcon from '@mui/icons-material/Hotel';
-import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
-import AttractionsIcon from '@mui/icons-material/Attractions';
-import PetsIcon from '@mui/icons-material/Pets';
-import ParkIcon from '@mui/icons-material/Park';
-import TerrainIcon from '@mui/icons-material/Terrain';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import HeaderButton from './header-button';
 
 const useStyles = makeStyles((theme) => ({
   login: {
@@ -108,33 +101,7 @@ export default function AppHeader() {
           <img src={Logo} className={classes.logo} />
         </Link>
         {mountains.map((mountain) => (
-          <div>
-            <Button
-              color="inherit"
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onMouseEnter={showMountainMenu}
-            >
-              <menu className={mountain[0]}>{mountain[1].toString()}</menu> <KeyboardArrowDownIcon />
-            </Button>
-            <Menu
-              id="basic-menu"
-              aria-labelledby="demo-positioned-button"
-              anchorEl={anchorEl}
-              open={mountainInfoOpen}
-              onClose={() => setAnchorEl(null)}
-              onMouseLeave={() => setAnchorEl(null)}
-            >
-              <MenuItem component={Link} to={mountain[0] + "/hotels"} onClick={() => setAnchorEl(null)}><HotelIcon /> Хотели </MenuItem>
-              <MenuItem component={Link} to={mountain[0] + "/cottages"} onClick={() => setAnchorEl(null)}><BungalowIcon /> Хижи </MenuItem>
-              <MenuItem component={Link} to={mountain[0] + "/routes"} onClick={() => setAnchorEl(null)}><DirectionsWalkIcon /> Пътеки </MenuItem>
-              <MenuItem component={Link} to={mountain[0] + "/flora"} onClick={() => setAnchorEl(null)}><ParkIcon /> Растителност </MenuItem>
-              <MenuItem component={Link} to={mountain[0] + "/fauna"} onClick={() => setAnchorEl(null)}><PetsIcon /> Животни </MenuItem>
-              <MenuItem component={Link} to={mountain[0] + "/landmarks"} onClick={() => setAnchorEl(null)}><TerrainIcon /> Забележителности </MenuItem>
-              <MenuItem component={Link} to={mountain[0] + "/attractions"} onClick={() => setAnchorEl(null)}><AttractionsIcon /> Атракции </MenuItem>
-            </Menu>
-          </div>
+          <HeaderButton mountain={mountain[0]} mountainInBg={mountain[1].toString()}></HeaderButton>
         ))}
         {user && (
           <>
