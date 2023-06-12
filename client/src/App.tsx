@@ -1,23 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate 
-} from "react-router-dom";
 import './App.css';
-import Background from './resources/background.svg';
-import AppHeader from './components/app-header';
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+
 import { CssBaseline } from '@material-ui/core';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
+
+import AppHeader from './components/app-header';
 import Home from './pages/home';
-import Login from "./pages/login";
+import Login from './pages/login';
+import SignUp from './pages/register';
+import Background from './resources/background.svg';
 
 const theme = createTheme({
   overrides: {
     MuiCssBaseline: {
-      "@global": {
+      '@global': {
         body: {
           '&::before': {
             content: '""',
@@ -33,29 +31,27 @@ const theme = createTheme({
             backgroundPosition: 'top',
             backgroundRepeat: 'no-repeat',
             zIndex: '-1',
-          }
-        }
-      }
-    }
-  }
-})
+          },
+        },
+      },
+    },
+  },
+});
 
 function App() {
-
-
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       <Router>
         <AppHeader />
         <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/login" element={<Login/>}/>
-          </Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignUp />} />
+        </Routes>
       </Router>
     </ThemeProvider>
-  )
-    
+  );
 }
 
 export default App;

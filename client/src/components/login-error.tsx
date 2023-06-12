@@ -6,9 +6,5 @@ interface ErrorProps {
 }
 
 export default function LoginError(props: ErrorProps) {
-  return (
-    <>
-      {props.message && <Typography color="error">{props.message}</Typography>}
-    </>
-  );
+  return <>{props.message && <Typography color="error">{props.message}</Typography>}</>;
 }
