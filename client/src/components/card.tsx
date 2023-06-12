@@ -8,53 +8,45 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EditIcon from '@mui/icons-material/Edit';
-import hotel_vitosha from '../resources/hotel_vitosha.jpg'
-import useCurrentUser from "../context/auth-context";
+import useCurrentUser from '../context/auth-context';
 
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 'none !important',
-    width:'60%',
+    width: '60%',
     height: '10%',
     display: 'flex',
-    alignItems: 'center'  
-  }}))
+    alignItems: 'center',
+  },
+}));
 
 export default function CardComponent() {
   const classes = useStyles();
-  
+
   const user = useCurrentUser();
 
   return (
     <Card sx={{ maxWidth: 345 }} className={classes.card}>
-      <CardMedia
-        component="img"
-        height="194"
-        alt="hotel vitosha"
-        src={hotel_vitosha}
-        />
+      <CardMedia component="img" height="194" alt="hotel vitosha" />
       <CardActionArea>
-        <CardHeader
-          title="Hotel Vitosha"
-          subheader="4 stars"
-        />
+        <CardHeader title="Hotel Vitosha" subheader="4 stars" />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to cook
-            together with your guests. Add 1 cup of frozen peas along with the mussels,
-            if you like.
+            This impressive paella is a perfect party dish and a fun meal to cook together
+            with your guests. Add 1 cup of frozen peas along with the mussels, if you
+            like.
           </Typography>
         </CardContent>
       </CardActionArea>
       <div className="buttons">
         <CardActions disableSpacing>
           <IconButton aria-label="settings">
-            {!user /*&& user.isAdmin*/ && (<EditIcon />)}
+            {!user /*&& user.isAdmin*/ && <EditIcon />}
           </IconButton>
         </CardActions>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
-            {!user && (<FavoriteIcon />)}
+            {!user && <FavoriteIcon />}
           </IconButton>
         </CardActions>
       </div>
