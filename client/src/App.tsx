@@ -1,54 +1,61 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate 
+} from "react-router-dom";
 import './App.css';
+import Background from './resources/background.svg';
+import AppHeader from './components/app-header';
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import { CssBaseline } from '@material-ui/core';
+import Home from './pages/home';
+import Login from "./pages/login";
 
-import React, { useState } from 'react';
-
-import logo from './logo.svg';
+const theme = createTheme({
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          '&::before': {
+            content: '""',
+            display: 'block',
+            position: 'absolute',
+            left: '0',
+            top: '0',
+            width: '100%',
+            height: '100%',
+            opacity: '0.6',
+            backgroundImage: `url(${Background})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'top',
+            backgroundRepeat: 'no-repeat',
+            zIndex: '-1',
+          }
+        }
+      }
+    }
+  }
+})
 
 function App() {
-  const [count, setCount] = useState(0);
+
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="header">
-          🚀 Vite + React + Typescript 🤘 & <br />
-          Eslint 🔥+ Prettier
-        </p>
-
-        <div className="body">
-          <button onClick={() => setCount((count) => count + 1)}>
-            🪂 Click me : {count}
-          </button>
-
-          <p> Don&apos;t forgot to install Eslint and Prettier in Your Vscode.</p>
-
-          <p>
-            Mess up the code in <code>App.tsx </code> and save the file.
-          </p>
-          <p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-            {' | '}
-            <a
-              className="App-link"
-              href="https://vitejs.dev/guide/features.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Vite Docs
-            </a>
-          </p>
-        </div>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+      <Router>
+        <AppHeader />
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/login" element={<Login/>}/>
+          </Routes>
+      </Router>
+    </ThemeProvider>
+  )
+    
 }
 
 export default App;
