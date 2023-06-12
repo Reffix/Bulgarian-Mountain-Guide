@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import useCurrentUser from "../context/auth-context";
 import authService from "../services/auth-service";
+import { Mountains } from "../enums/Mountains";
 import Logo from '../resources/logo.svg'
 
 const useStyles = makeStyles((theme) => ({
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     bar: {
+      underline:'none',
       [theme.breakpoints.up('xs')]: {
         height: '40px',
       },
@@ -65,6 +67,24 @@ const useStyles = makeStyles((theme) => ({
         width: '90px',
         height: '70px',
       },
+    },
+    redirectionButton:{
+      [theme.breakpoints.up('xs')]: {
+        width: '80px',
+        height: '40px',
+      },
+      [theme.breakpoints.up('sm')]: {
+        width: '90px',
+        height: '50px',
+      },
+      [theme.breakpoints.up('md')]: {
+        width: '100px',
+        height: '60px',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: '130px',
+        height: '70px',
+      },
     }
 }));
 
@@ -76,7 +96,9 @@ export default function AppHeader() {
     const user = useCurrentUser();
   
     const location = useLocation();
-  
+    
+    const mountains = Object.entries(Mountains);
+
     function logout() {
       setAnchorEl(null);
       authService.logout();
@@ -85,6 +107,16 @@ export default function AppHeader() {
     function showUserProfile() {
       setAnchorEl(null);
     }
+    function showAllMountains() {
+      const result = [];
+      for (const mountain in Mountains) {
+        if(isNaN(Number(mountain))){
+          result.push(<div><Link to={'/' + mountain.toString()} className={classes.bar}>{mountain.toString()}</Link></div>)
+        }
+      }
+  
+      return <li>{result}</li>;
+    };
   
     return (
       <AppBar position="static" className={classes.bar}>
@@ -92,6 +124,11 @@ export default function AppHeader() {
           <Link to="/" className={classes.bar}>
             <img src={Logo} className={classes.logo}/>
           </Link>
+          { mountains.map(mountain => (
+            <Button  color="inherit" component={Link} to={'/' + mountain[0]}  className={classes.redirectionButton}>
+              {mountain[1].toString()}
+            </Button>
+          ))}
           {user && (
             <>
               <Box>

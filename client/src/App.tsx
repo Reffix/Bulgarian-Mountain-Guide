@@ -13,6 +13,7 @@ import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import { CssBaseline } from '@material-ui/core';
 import Home from './pages/home';
 import Login from "./pages/login";
+import CardComponent from "./components/card";
 
 const theme = createTheme({
   overrides: {
@@ -41,8 +42,7 @@ const theme = createTheme({
 })
 
 function App() {
-
-
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
@@ -51,6 +51,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/card" element={<CardComponent/>}/>
           </Routes>
       </Router>
     </ThemeProvider>
