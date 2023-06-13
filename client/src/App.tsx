@@ -1,24 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate 
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Background from './resources/background.svg';
 import AppHeader from './components/app-header';
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Home from './pages/home';
-import Login from "./pages/login";
-import CardComponent from "./components/card";
+import Login from './pages/login';
+import CardComponent from './components/card';
+import Hotels from './pages/hotels';
+import Cottages from './pages/cottages';
+import MountainRoutes from './pages/routes';
+import Flora from './pages/flora';
+import Attractions from './pages/attractions';
+import Landmarks from './pages/landmarks';
+import Fauna from './pages/fauna';
 
 const theme = createTheme({
   overrides: {
     MuiCssBaseline: {
-      "@global": {
+      '@global': {
         body: {
           '&::before': {
             content: '""',
@@ -34,29 +34,34 @@ const theme = createTheme({
             backgroundPosition: 'top',
             backgroundRepeat: 'no-repeat',
             zIndex: '-1',
-          }
-        }
-      }
-    }
-  }
-})
+          },
+        },
+      },
+    },
+  },
+});
 
 function App() {
-  
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       <Router>
         <AppHeader />
         <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/card" element={<CardComponent/>}/>
-          </Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/card" element={<CardComponent />} />
+          <Route path="/hotels" element={<Hotels />} />
+          <Route path="/cottages" element={<Cottages />} />
+          <Route path="/routes" element={<MountainRoutes />} />
+          <Route path="/flora" element={<Flora />} />
+          <Route path="/fauna" element={<Fauna />} />
+          <Route path="/attractions" element={<Attractions />} />
+          <Route path="/landmarks" element={<Landmarks />} />
+        </Routes>
       </Router>
     </ThemeProvider>
-  )
-    
+  );
 }
 
 export default App;

@@ -1,4 +1,15 @@
-import { makeStyles, AppBar, Toolbar, Box, Typography, IconButton, Avatar, Menu, MenuItem, Button, } from '@material-ui/core';
+import {
+  makeStyles,
+  AppBar,
+  Toolbar,
+  Box,
+  Typography,
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
+  Button,
+} from '@material-ui/core';
 import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import useCurrentUser from '../context/auth-context';
@@ -78,7 +89,6 @@ export default function AppHeader() {
   const user = useCurrentUser();
 
   const location = useLocation();
-  const mountainInfoOpen = Boolean(anchorEl);
   const mountains = Object.entries(Mountains);
 
   function logout() {
@@ -90,10 +100,6 @@ export default function AppHeader() {
     setAnchorEl(null);
   }
 
-  function showMountainMenu(event: React.MouseEvent<HTMLElement>) {
-    setAnchorEl(event.currentTarget);
-  }
-
   return (
     <AppBar position="static" className={classes.bar}>
       <Toolbar className={classes.header}>
@@ -101,7 +107,7 @@ export default function AppHeader() {
           <img src={Logo} className={classes.logo} />
         </Link>
         {mountains.map((mountain) => (
-          <HeaderButton mountain={mountain[0]} mountainInBg={mountain[1].toString()}></HeaderButton>
+          <HeaderButton mountainInBg={mountain[1].toString()}></HeaderButton>
         ))}
         {user && (
           <>
