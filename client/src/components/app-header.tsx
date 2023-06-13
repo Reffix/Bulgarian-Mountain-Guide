@@ -90,7 +90,7 @@ export default function AppHeader() {
 
   const location = useLocation();
   const mountains = Object.entries(Mountains);
-
+  
   function logout() {
     setAnchorEl(null);
     authService.logout();
@@ -107,7 +107,7 @@ export default function AppHeader() {
           <img src={Logo} className={classes.logo} />
         </Link>
         {mountains.map((mountain) => (
-          <HeaderButton mountainInBg={mountain[1].toString()}></HeaderButton>
+          <HeaderButton mountain={mountain[0]} mountainInBg={mountain[1].toString()}></HeaderButton>
         ))}
         {user && (
           <>

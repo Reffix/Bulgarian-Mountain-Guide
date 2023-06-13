@@ -50,7 +50,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/card" element={<CardComponent />} />
           <Route path="/hotels" element={<Hotels />} />
           <Route path="/cottages" element={<Cottages />} />
           <Route path="/routes" element={<MountainRoutes />} />

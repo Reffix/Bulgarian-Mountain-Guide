@@ -16,25 +16,30 @@ const useStyles = makeStyles((theme) => ({
     width: '60%',
     height: '10%',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center',    
+    marginTop: '1em',
   },
 }));
 
-export default function CardComponent() {
-  const classes = useStyles();
+interface CardInfo {
+  title: string;
+  description: string;
+  image: string;
+}
 
+export default function CardComponent(params: {cardInfo: CardInfo}) {
+  const classes = useStyles();
+  const cardInfo = params.cardInfo;
   const user = useCurrentUser();
 
   return (
     <Card sx={{ maxWidth: 345 }} className={classes.card}>
-      <CardMedia component="img" height="194" alt="hotel vitosha" />
+      <CardMedia component="img" height="194" src={cardInfo.image} alt="hotel vitosha" />
       <CardActionArea>
-        <CardHeader title="Hotel Vitosha" subheader="4 stars" />
+        <CardHeader title={cardInfo.title} subheader="4 stars" />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to cook together
-            with your guests. Add 1 cup of frozen peas along with the mussels, if you
-            like.
+              {cardInfo.description}
           </Typography>
         </CardContent>
       </CardActionArea>

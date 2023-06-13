@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import { useState } from 'react';
 import BungalowIcon from '@mui/icons-material/Bungalow';
@@ -10,9 +10,11 @@ import ParkIcon from '@mui/icons-material/Park';
 import TerrainIcon from '@mui/icons-material/Terrain';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-export default function HeaderButton({ mountainInBg }) {
+export default function HeaderButton({mountain, mountainInBg }) {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-
+  const selectedMountain = useNavigate();
+  
+  //
   const mountainInfoOpen = Boolean(anchorEl);
 
   function showMountainMenu(event: React.MouseEvent<HTMLElement>) {
@@ -26,7 +28,7 @@ export default function HeaderButton({ mountainInBg }) {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onMouseEnter={showMountainMenu}
+        onClick={showMountainMenu}
       >
         {mountainInBg.toString()} <KeyboardArrowDownIcon />
       </Button>
@@ -38,25 +40,25 @@ export default function HeaderButton({ mountainInBg }) {
         onClose={() => setAnchorEl(null)}
         onMouseLeave={() => setAnchorEl(null)}
       >
-        <MenuItem component={Link} to={'/hotels'} onClick={() => setAnchorEl(null)}>
+        <MenuItem  onClick={() => {selectedMountain('/hotels', { state: { mountain: mountain } }); setAnchorEl(null)}}>
           <HotelIcon /> Хотели{' '}
         </MenuItem>
-        <MenuItem component={Link} to={'/cottages'} onClick={() => setAnchorEl(null)}>
+        <MenuItem onClick={() => {selectedMountain('/cottages', { state: { mountain: mountain } }); setAnchorEl(null)}}>
           <BungalowIcon /> Хижи{' '}
         </MenuItem>
-        <MenuItem component={Link} to={'/routes'} onClick={() => setAnchorEl(null)}>
+        <MenuItem onClick={() => {selectedMountain('/routes', { state: { mountain: mountain } }); setAnchorEl(null)}}>
           <DirectionsWalkIcon /> Пътеки{' '}
         </MenuItem>
-        <MenuItem component={Link} to={'/flora'} onClick={() => setAnchorEl(null)}>
+        <MenuItem onClick={() => {selectedMountain('/flora', { state: { mountain: mountain } }); setAnchorEl(null)}}>
           <ParkIcon /> Растителност{' '}
         </MenuItem>
-        <MenuItem component={Link} to={'/fauna'} onClick={() => setAnchorEl(null)}>
+        <MenuItem onClick={() => {selectedMountain('/fauna', { state: { mountain: mountain } }); setAnchorEl(null)}}>
           <PetsIcon /> Животни{' '}
         </MenuItem>
-        <MenuItem component={Link} to={'/landmarks'} onClick={() => setAnchorEl(null)}>
+        <MenuItem onClick={() => {selectedMountain('/landmarks', { state: { mountain: mountain } }); setAnchorEl(null)}}>
           <TerrainIcon /> Забележителности{' '}
         </MenuItem>
-        <MenuItem component={Link} to={'/attractions'} onClick={() => setAnchorEl(null)}>
+        <MenuItem onClick={() => {selectedMountain('/attractions', { state: { mountain: mountain } }); setAnchorEl(null)}}>
           <AttractionsIcon /> Атракции{' '}
         </MenuItem>
       </Menu>
