@@ -28,15 +28,15 @@ export default function Hotels() {
   //const hotels = apiService.get('/hotels/' + mountain);
   const hotels:  Hotel[] = [
     {
-      title: "title",
-      description: "desc",
-      image: "https://www.google.com/imgres?imgurl=https%3A%2F%2Flirp.cdn-website.com%2F11191c87%2Fdms3rep%2Fmulti%2Fopt%2Fbuilding1-feded8e1-640w.jpg&tbnid=bNbFd6Q4Gz8XpM&vet=12ahUKEwj6rNzXtMD_AhVIhqQKHZopAPkQMygAegUIARDfAQ..i&imgrefurl=https%3A%2F%2Fwww.limakhotels.com%2Fskopje&docid=FRYXmVxACV1WkM&w=640&h=598&q=hotel&ved=2ahUKEwj6rNzXtMD_AhVIhqQKHZopAPkQMygAegUIARDfAQ",
+      title: "Lorem Ipsum",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat lorem eget gravida pretium. Etiam accumsan sapien eget nibh laoreet, quis condimentum orci bibendum. Vivamus et congue ex. Donec nibh arcu, ullamcorper eget placerat at, interdum quis dolor. Cras facilisis, leo et interdum laoreet, nisi sapien pretium justo, id dapibus libero urna at mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat lorem eget gravida pretium. Etiam accumsan sapien eget nibh laoreet, quis condimentum orci bibendum. Vivamus et congue ex. Donec nibh arcu, ullamcorper eget placerat at, interdum quis dolor. Cras facilisis, leo et interdum laoreet, nisi sapien pretium justo, id dapibus libero urna at mauris. ",
+      image: "./../resources/hotel1.jpg",
       stars: 5
     },
     {
-      title: "title",
-      description: "desc",
-      image: "./../resources/hotel2",
+      title: "Lorem Ipsum",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat lorem eget gravida pretium. Etiam accumsan sapien eget nibh laoreet, quis condimentum orci bibendum. Vivamus et congue ex. Donec nibh arcu, ullamcorper eget placerat at, interdum quis dolor. Cras facilisis, leo et interdum laoreet, nisi sapien pretium justo, id dapibus libero urna at mauris.",
+      image: "./../resources/hotel2.jpg",
       stars: 5
     }
   ]
