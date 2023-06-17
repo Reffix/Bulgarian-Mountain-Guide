@@ -1,22 +1,29 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
-import useCurrentUser from "../context/auth-context";
+import useCurrentUser from '../context/auth-context';
+import CardComponent, { CardInfo } from './card';
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    maxWidth: 'none !important',
-    width:'60%',
-    height: '10%',
+  cardList: {
     display: 'flex',
-    alignItems: 'center'  
-  }}))
+    flexDirection: 'column',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+}));
 
-export default function CardComponent() {
+export default function CardListComponent(params: { cardList: CardInfo[] }) {
   const classes = useStyles();
-  
+
   const user = useCurrentUser();
-  let cardsList = [];
+  let cardsList = params.cardList;
+
   return (
-    <CardComponent></CardComponent>
+    <div className={classes.cardList}>
+      {cardsList.map((card) => (
+        <CardComponent cardInfo={card}></CardComponent>
+      ))}
+    </div>
   );
 }

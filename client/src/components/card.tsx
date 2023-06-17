@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     width: '60%',
     height: '10%',
     display: 'flex',
-    alignItems: 'center',    
+    alignItems: 'center',
     marginTop: '1em',
   },
   cardContent: {
@@ -25,28 +25,33 @@ const useStyles = makeStyles((theme) => ({
     display: '-webkit-box',
     '-webkit-line-clamp': 4, // Show 3 lines of text before truncating
     '-webkit-box-orient': 'vertical',
-  }
+  },
 }));
 
-interface CardInfo {
+export interface CardInfo {
   title: string;
   description: string;
   image: string;
 }
 
-export default function CardComponent(params: {cardInfo: CardInfo}) {
+export default function CardComponent(params: { cardInfo: CardInfo }) {
   const classes = useStyles();
   const cardInfo = params.cardInfo;
   const user = useCurrentUser();
 
   return (
     <Card sx={{ maxWidth: 345 }} className={classes.card}>
-      <CardMedia component="img" height="194" src={new URL(cardInfo.image, import.meta.url).href} alt="hotel vitosha" />
+      <CardMedia
+        component="img"
+        height="194"
+        src={new URL(cardInfo.image, import.meta.url).href}
+        alt="hotel vitosha"
+      />
       <CardActionArea>
         <CardHeader title={cardInfo.title} subheader="4 stars" />
         <CardContent className={classes.cardContent}>
           <Typography variant="body2" color="text.secondary">
-              {cardInfo.description}
+            {cardInfo.description}
           </Typography>
         </CardContent>
       </CardActionArea>
