@@ -1,16 +1,23 @@
 package com.mountain.model;
 
-import com.mountain.enums.Mountain;
-import com.mountain.enums.Star;
+public class AttractionDto {
 
-public class HotelDto {
     private Long id;
     private String name;
     private String description;
-    private Star stars;
-    private String linkToSite;
     private String picture;
-    private Mountain mountain;
+    private boolean premium;
+
+    public AttractionDto() {
+    }
+
+    public AttractionDto(Long id, String name, String description, boolean premium, String picture) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.premium = premium;
+        this.picture = picture;
+    }
 
     public Long getId() {
         return id;
@@ -36,22 +43,6 @@ public class HotelDto {
         this.description = description;
     }
 
-    public Star getStars() {
-        return stars;
-    }
-
-    public void setStars(Star stars) {
-        this.stars = stars;
-    }
-
-    public String getLinkToSite() {
-        return linkToSite;
-    }
-
-    public void setLinkToSite(String linkToSite) {
-        this.linkToSite = linkToSite;
-    }
-
     public String getPicture() {
         return picture;
     }
@@ -60,11 +51,11 @@ public class HotelDto {
         this.picture = picture;
     }
 
-    public Mountain getMountain() {
-        return mountain;
+    public boolean isPremium() {
+        return premium;
     }
 
-    public void setMountain(Mountain mountain) {
-        this.mountain = mountain;
+    public void setPremium(boolean dangerous) {
+        this.premium = premium;
     }
 }

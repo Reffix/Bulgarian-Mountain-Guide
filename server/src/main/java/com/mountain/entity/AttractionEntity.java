@@ -5,8 +5,8 @@ import com.mountain.enums.Mountain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "landmark")
-public class LandmarkEntity {
+@Table(name = "attraction")
+public class AttractionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,22 +18,26 @@ public class LandmarkEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "location")
-    private String location;
+    @Column(name = "dangerous")
+    private boolean premium;
+
+    @Column(name = "picture")
+    private String picture;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "mountain")
     private Mountain mountain;
 
-    public LandmarkEntity() {
-    }
-
-    public LandmarkEntity(Long id, String name, String description, String location, Mountain mountain) {
+    public AttractionEntity(Long id, String name, String description, boolean premium, String picture, Mountain mountain) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.location = location;
+        this.premium = premium;
+        this.picture = picture;
         this.mountain = mountain;
+    }
+
+    public AttractionEntity() {
     }
 
     public Long getId() {
@@ -60,12 +64,20 @@ public class LandmarkEntity {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public boolean isPremium() {
+        return premium;
+    }
+
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 
     public Mountain getMountain() {

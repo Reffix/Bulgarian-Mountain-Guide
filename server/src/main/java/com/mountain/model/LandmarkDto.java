@@ -1,20 +1,24 @@
 package com.mountain.model;
 
+import com.mountain.enums.Mountain;
+
 public class LandmarkDto {
 
     private Long id;
     private String name;
     private String description;
     private String location;
+    private Mountain mountain;
 
     public LandmarkDto() {
     }
 
-    public LandmarkDto(Long id, String name, String description, String location) {
+    public LandmarkDto(Long id, String name, String description, String location, Mountain mountain) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.location = location;
+        this.mountain = mountain;
     }
 
     public Long getId() {
@@ -47,5 +51,13 @@ public class LandmarkDto {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }

@@ -1,5 +1,6 @@
 package com.mountain.entity;
 
+import com.mountain.enums.Mountain;
 import com.mountain.enums.Star;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,10 @@ public class HotelEntity {
 
     @Column(name = "picture")
     private String picture;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mountain")
+    private Mountain mountain;
 
     public Long getId() {
         return id;
@@ -79,5 +84,13 @@ public class HotelEntity {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }
