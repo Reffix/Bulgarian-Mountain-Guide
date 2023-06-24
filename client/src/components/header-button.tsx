@@ -53,7 +53,7 @@ export default function HeaderButton({ mountain, mountainInBg }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            selectedMountain('/cottages', {
+            selectedMountain('/listPage', {
               state: { mountain: mountain, entity: DisplayableEntites.Cottage },
             });
             setAnchorEl(null);
@@ -63,7 +63,7 @@ export default function HeaderButton({ mountain, mountainInBg }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            selectedMountain('/routes', {
+            selectedMountain('/listPage', {
               state: { mountain: mountain, entity: DisplayableEntites.Route },
             });
             setAnchorEl(null);
@@ -73,7 +73,7 @@ export default function HeaderButton({ mountain, mountainInBg }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            selectedMountain('/flora', {
+            selectedMountain('/listPage', {
               state: { mountain: mountain, entity: DisplayableEntites.Flora },
             });
             setAnchorEl(null);
@@ -83,7 +83,7 @@ export default function HeaderButton({ mountain, mountainInBg }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            selectedMountain('/fauna', {
+            selectedMountain('/listPage', {
               state: { mountain: mountain, entity: DisplayableEntites.Fauna },
             });
             setAnchorEl(null);
@@ -93,7 +93,7 @@ export default function HeaderButton({ mountain, mountainInBg }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            selectedMountain('/landmarks', {
+            selectedMountain('/listPage', {
               state: { mountain: mountain, entity: DisplayableEntites.Landmark },
             });
             setAnchorEl(null);
@@ -103,7 +103,7 @@ export default function HeaderButton({ mountain, mountainInBg }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            selectedMountain('/attractions', {
+            selectedMountain('/listPage', {
               state: { mountain: mountain, entity: DisplayableEntites.Attraction },
             });
             setAnchorEl(null);

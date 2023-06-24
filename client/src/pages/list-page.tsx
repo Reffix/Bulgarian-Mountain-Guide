@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core';
 import CardListComponent from '../components/card-list';
 import { useEffect, useState } from 'react';
 import { Pagination } from '@mui/material';
+import { DisplayableEntites } from '../enums/DisplayableEntites';
 
 const useStyles = makeStyles((theme) => ({}));
 
@@ -13,7 +14,7 @@ export default function ListPage() {
 
   const { state } = useLocation();
   const mountain = state.mountain;
-  const entity = state.entity;
+  const entity: String = Object.entries(DisplayableEntites)[state.entity][1].toString();
 
   const [cardList, setCardList] = useState<CardInfo[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +23,7 @@ export default function ListPage() {
     const fetchCardInfo = async () => {
       try {
         const response = await apiService.get<{ data: CardInfo[]; totalPages: number }>(
-          'getAll' + entity + '/' + mountain + '?page=' + currentPage,
+          'getAll/' + entity + '/' + mountain + '?page=' + currentPage,
         );
         setCardList(response.data.data);
         setTotalPages(response.data.totalPages);
