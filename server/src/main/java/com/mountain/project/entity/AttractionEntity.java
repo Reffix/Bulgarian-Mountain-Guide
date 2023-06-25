@@ -1,7 +1,10 @@
 package com.mountain.project.entity;
 
+import com.mountain.project.enums.Mountain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +29,13 @@ public class AttractionEntity {
 
     @Column(name = "premium")
     private boolean premium;
+
+    @Column(name = "picture")
+    private String picture;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mountain")
+    private Mountain mountain;
 
     public Long getId() {
         return id;
@@ -65,6 +75,22 @@ public class AttractionEntity {
 
     public void setPremium(boolean premium) {
         this.premium = premium;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }
 

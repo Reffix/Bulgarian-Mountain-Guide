@@ -16,6 +16,8 @@ public class AttractionMapper {
         attractionDto.setDescription(attractionEntity.getDescription());
         attractionDto.setLocation(attractionEntity.getLocation());
         attractionDto.setPremium(attractionEntity.isPremium());
+        attractionDto.setPicture(attractionEntity.getPicture());
+        attractionDto.setMountain(attractionEntity.getMountain());
         return attractionDto;
     }
 

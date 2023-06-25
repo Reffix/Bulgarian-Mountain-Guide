@@ -1,5 +1,7 @@
 package com.mountain.project.model;
 
+import com.mountain.project.enums.Mountain;
+
 public class AttractionDto {
 
     private Long id;
@@ -8,15 +10,22 @@ public class AttractionDto {
     private String location;
     private boolean premium;
 
+    private String picture;
+
+    private Mountain mountain;
+
     public AttractionDto() {
     }
 
-    public AttractionDto(Long id, String name, String description, String location, boolean premium) {
+    public AttractionDto(Long id, String name, String description, String location, boolean premium, String picture,
+            Mountain mountain) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.location = location;
         this.premium = premium;
+        this.picture = picture;
+        this.mountain = mountain;
     }
 
     public Long getId() {
@@ -57,6 +66,22 @@ public class AttractionDto {
 
     public void setPremium(boolean premium) {
         this.premium = premium;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }
 
