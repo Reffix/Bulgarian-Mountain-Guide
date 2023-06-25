@@ -21,12 +21,6 @@ public class CottageEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "route_to")
-    private Integer routeTo;
-
-    @Column(name = "route_from")
-    private Integer routeFrom;
-
     @Column(name = "premium")
     private Boolean premium;
 
@@ -52,22 +46,6 @@ public class CottageEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getRouteTo() {
-        return routeTo;
-    }
-
-    public void setRouteTo(Integer routeTo) {
-        this.routeTo = routeTo;
-    }
-
-    public Integer getRouteFrom() {
-        return routeFrom;
-    }
-
-    public void setRouteFrom(Integer routeFrom) {
-        this.routeFrom = routeFrom;
     }
 
     public Boolean getPremium() {

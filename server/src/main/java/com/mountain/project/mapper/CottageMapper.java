@@ -14,8 +14,6 @@ public class CottageMapper {
         cottageDto.setId(cottageEntity.getId());
         cottageDto.setName(cottageEntity.getName());
         cottageDto.setDescription(cottageEntity.getDescription());
-        cottageDto.setRouteTo(cottageEntity.getRouteTo());
-        cottageDto.setRouteFrom(cottageEntity.getRouteFrom());
         cottageDto.setPremium(cottageEntity.getPremium());
         return cottageDto;
     }
@@ -33,8 +31,6 @@ public class CottageMapper {
         cottageEntity.setId(cottageDto.getId());
         cottageEntity.setName(cottageDto.getName());
         cottageEntity.setDescription(cottageDto.getDescription());
-        cottageEntity.setRouteTo(cottageDto.getRouteTo());
-        cottageEntity.setRouteFrom(cottageDto.getRouteFrom());
         cottageEntity.setPremium(cottageDto.getPremium());
         return cottageEntity;
     }

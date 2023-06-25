@@ -41,8 +41,6 @@ public class CottageService {
             CottageEntity cottageEntity = cottageEntityOptional.get();
             cottageEntity.setName(cottageDto.getName());
             cottageEntity.setDescription(cottageDto.getDescription());
-            cottageEntity.setRouteTo(cottageDto.getRouteTo());
-            cottageEntity.setRouteFrom(cottageDto.getRouteFrom());
             cottageEntity.setPremium(cottageDto.getPremium());
             CottageEntity updatedCottageEntity = cottageRepository.save(cottageEntity);
             return cottageMapper.convertCottageEntityToCottageDto(updatedCottageEntity);
