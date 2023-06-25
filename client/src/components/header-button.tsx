@@ -9,13 +9,14 @@ import PetsIcon from '@mui/icons-material/Pets';
 import ParkIcon from '@mui/icons-material/Park';
 import TerrainIcon from '@mui/icons-material/Terrain';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { DisplayableEntites } from '../enums/DisplayableEntites';
+import { DisplayableEntites, GetIcon } from '../enums/DisplayableEntites';
 
 export default function HeaderButton({ mountain, mountainInBg }) {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const selectedMountain = useNavigate();
 
-  //
+  const entities = Object.entries(DisplayableEntites);
+
   const mountainInfoOpen = Boolean(anchorEl);
 
   function showMountainMenu(event: React.MouseEvent<HTMLElement>) {
@@ -41,76 +42,18 @@ export default function HeaderButton({ mountain, mountainInBg }) {
         onClose={() => setAnchorEl(null)}
         onMouseLeave={() => setAnchorEl(null)}
       >
-        <MenuItem
-          onClick={() => {
-            selectedMountain('/listPage', {
-              state: { mountain: mountain, entity: DisplayableEntites.Hotel },
-            });
-            setAnchorEl(null);
-          }}
-        >
-          <HotelIcon /> Хотели{' '}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            selectedMountain('/listPage', {
-              state: { mountain: mountain, entity: DisplayableEntites.Cottage },
-            });
-            setAnchorEl(null);
-          }}
-        >
-          <BungalowIcon /> Хижи{' '}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            selectedMountain('/listPage', {
-              state: { mountain: mountain, entity: DisplayableEntites.Route },
-            });
-            setAnchorEl(null);
-          }}
-        >
-          <DirectionsWalkIcon /> Пътеки{' '}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            selectedMountain('/listPage', {
-              state: { mountain: mountain, entity: DisplayableEntites.Flora },
-            });
-            setAnchorEl(null);
-          }}
-        >
-          <ParkIcon /> Растителност{' '}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            selectedMountain('/listPage', {
-              state: { mountain: mountain, entity: DisplayableEntites.Fauna },
-            });
-            setAnchorEl(null);
-          }}
-        >
-          <PetsIcon /> Животни{' '}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            selectedMountain('/listPage', {
-              state: { mountain: mountain, entity: DisplayableEntites.Landmark },
-            });
-            setAnchorEl(null);
-          }}
-        >
-          <TerrainIcon /> Забележителности{' '}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            selectedMountain('/listPage', {
-              state: { mountain: mountain, entity: DisplayableEntites.Attraction },
-            });
-            setAnchorEl(null);
-          }}
-        >
-          <AttractionsIcon /> Атракции{' '}
-        </MenuItem>
+        {entities.map((entity) => (
+          <MenuItem
+            onClick={() => {
+              selectedMountain('/listPage', {
+                state: { mountain: mountain, entity: entity[0] },
+              });
+              setAnchorEl(null);
+            }}
+          >
+            {GetIcon(entity[1])} {entity[1].toString()}
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );
