@@ -2,6 +2,8 @@ package com.mountain.project.model;
 
 import com.mountain.project.enums.Mountain;
 
+import java.util.List;
+
 public class AttractionDto {
 
     private Long id;
@@ -9,23 +11,13 @@ public class AttractionDto {
     private String description;
     private String location;
     private boolean premium;
+    private List<UserDto> favouredByUserIds;
 
     private String picture;
 
     private Mountain mountain;
 
     public AttractionDto() {
-    }
-
-    public AttractionDto(Long id, String name, String description, String location, boolean premium, String picture,
-            Mountain mountain) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.location = location;
-        this.premium = premium;
-        this.picture = picture;
-        this.mountain = mountain;
     }
 
     public Long getId() {
@@ -82,6 +74,14 @@ public class AttractionDto {
 
     public void setMountain(Mountain mountain) {
         this.mountain = mountain;
+    }
+
+    public List<UserDto> getFavouredByUsers() {
+        return favouredByUserIds;
+    }
+
+    public void setFavouredByUsers(List<UserDto> favouredByUserIds) {
+        this.favouredByUserIds = favouredByUserIds;
     }
 }
 

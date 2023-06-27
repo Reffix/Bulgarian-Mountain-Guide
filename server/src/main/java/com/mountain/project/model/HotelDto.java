@@ -1,5 +1,7 @@
 package com.mountain.project.model;
 
+import java.util.List;
+
 public class HotelDto {
     private Long id;
     private String name;
@@ -8,6 +10,7 @@ public class HotelDto {
     private String linkToSite;
     private String picture;
     private boolean premium;
+    private List<UserDto> favouredByUserIds;
 
     public Long getId() {
         return id;
@@ -63,5 +66,13 @@ public class HotelDto {
 
     public void setPremium(boolean premium) {
         this.premium = premium;
+    }
+
+    public List<UserDto> getFavouredByUsers() {
+        return favouredByUserIds;
+    }
+
+    public void setFavouredByUsers(List<UserDto> favouredByUserIds) {
+        this.favouredByUserIds = favouredByUserIds;
     }
 }

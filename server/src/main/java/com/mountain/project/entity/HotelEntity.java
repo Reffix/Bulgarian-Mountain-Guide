@@ -1,11 +1,7 @@
 package com.mountain.project.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "hotels")
@@ -32,6 +28,9 @@ public class HotelEntity {
 
     @Column(name = "premium")
     private boolean premium;
+
+    @ManyToMany(mappedBy = "favouriteHotels")
+    private List<UserEntity> favouredByUsers;
 
     public Long getId() {
         return id;
@@ -87,5 +86,13 @@ public class HotelEntity {
 
     public void setPremium(boolean premium) {
         this.premium = premium;
+    }
+
+    public List<UserEntity> getFavouredByUsers() {
+        return favouredByUsers;
+    }
+
+    public void setFavouredByUsers(List<UserEntity> favouredByUsers) {
+        this.favouredByUsers = favouredByUsers;
     }
 }

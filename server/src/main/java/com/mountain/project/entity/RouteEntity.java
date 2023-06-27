@@ -1,11 +1,7 @@
 package com.mountain.project.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "routes")
@@ -29,6 +25,9 @@ public class RouteEntity {
 
     @Column(name = "denivelation")
     private Float denivelation;
+
+    @ManyToMany(mappedBy = "favouriteRoutes")
+    private List<UserEntity> favouredByUsers;
 
     public Long getId() {
         return id;
@@ -78,5 +77,12 @@ public class RouteEntity {
         this.denivelation = denivelation;
     }
 
+    public List<UserEntity> getFavouredByUsers() {
+        return favouredByUsers;
+    }
+
+    public void setFavouredByUsers(List<UserEntity> favouredByUsers) {
+        this.favouredByUsers = favouredByUsers;
+    }
 }
 

@@ -1,5 +1,7 @@
 package com.mountain.project.model;
 
+import java.util.List;
+
 public class RouteDto {
 
     private Long id;
@@ -8,17 +10,9 @@ public class RouteDto {
     private String endPoint;
     private Float distance;
     private Float denivelation;
+    private List<UserDto> favouredByUsers;
 
     public RouteDto() {
-    }
-
-    public RouteDto(Long id, Integer type, String startPoint, String endPoint, Float distance, Float denivelation) {
-        this.id = id;
-        this.type = type;
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
-        this.distance = distance;
-        this.denivelation = denivelation;
     }
 
     public Long getId() {
@@ -67,6 +61,14 @@ public class RouteDto {
 
     public void setDenivelation(Float denivelation) {
         this.denivelation = denivelation;
+    }
+
+    public List<UserDto> getFavouredByUsers() {
+        return favouredByUsers;
+    }
+
+    public void setFavouredByUsers(List<UserDto> favouredByUserIds) {
+        this.favouredByUsers = favouredByUserIds;
     }
 }
 

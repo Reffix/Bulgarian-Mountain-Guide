@@ -1,20 +1,16 @@
 package com.mountain.project.model;
 
+import java.util.List;
+
 public class CottageDto {
 
     private Long id;
     private String name;
     private String description;
     private Boolean premium;
+    private List<UserDto> favouredByUserIds;
 
     public CottageDto() {
-    }
-
-    public CottageDto(Long id, String name, String description, Boolean premium) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.premium = premium;
     }
 
     public Long getId() {
@@ -49,5 +45,13 @@ public class CottageDto {
 
     public void setPremium(Boolean premium) {
         this.premium = premium;
+    }
+
+    public List<UserDto> getFavouredByUsers() {
+        return favouredByUserIds;
+    }
+
+    public void setFavouredByUsers(List<UserDto> favouredByUserIds) {
+        this.favouredByUserIds = favouredByUserIds;
     }
 }

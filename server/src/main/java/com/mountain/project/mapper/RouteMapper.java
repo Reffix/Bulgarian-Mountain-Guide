@@ -1,13 +1,21 @@
 package com.mountain.project.mapper;
 
 import com.mountain.project.entity.RouteEntity;
+import com.mountain.project.entity.UserEntity;
 import com.mountain.project.model.RouteDto;
+import com.mountain.project.model.UserDto;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Component;
 
 @Component
 public class RouteMapper {
+    private final UserMapper userMapper;
+
+    public RouteMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     public RouteDto convertRouteEntityToRouteDto(RouteEntity routeEntity) {
         RouteDto routeDto = new RouteDto();
@@ -17,6 +25,10 @@ public class RouteMapper {
         routeDto.setEndPoint(routeEntity.getEndPoint());
         routeDto.setDistance(routeEntity.getDistance());
         routeDto.setDenivelation(routeEntity.getDenivelation());
+
+        List<UserDto> favouriteByUsers = userMapper.convertListUserEntityToListUserDto(routeEntity.getFavouredByUsers());
+        routeDto.setFavouredByUsers(favouriteByUsers);
+
         return routeDto;
     }
 
@@ -36,6 +48,10 @@ public class RouteMapper {
         routeEntity.setEndPoint(routeDto.getEndPoint());
         routeEntity.setDistance(routeDto.getDistance());
         routeEntity.setDenivelation(routeDto.getDenivelation());
+
+        List<UserEntity> favouriteByUsers = userMapper.convertListUserDtoToListUserEntity(routeDto.getFavouredByUsers());
+        routeEntity.setFavouredByUsers(favouriteByUsers);
+
         return routeEntity;
     }
 
