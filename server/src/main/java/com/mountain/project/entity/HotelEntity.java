@@ -29,7 +29,7 @@ public class HotelEntity {
     @Column(name = "premium")
     private boolean premium;
 
-    @ManyToMany(mappedBy = "favouriteHotels")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteHotels")
     private List<UserEntity> favouredByUsers;
 
     public Long getId() {

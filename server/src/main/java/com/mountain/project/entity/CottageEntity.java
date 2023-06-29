@@ -20,7 +20,7 @@ public class CottageEntity {
     @Column(name = "premium")
     private Boolean premium;
 
-    @ManyToMany(mappedBy = "favouriteCottages")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteCottages")
     private List<UserEntity> favouredByUsers;
 
     public Long getId() {

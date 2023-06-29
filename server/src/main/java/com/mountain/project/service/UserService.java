@@ -31,12 +31,16 @@ public class UserService {
     public UserDto getUserById(Long userId) {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
+        UserDto userDto = userMapper.convertUserEntityToDto(userEntity);
+        handleFavouriteMembersFromEntityToDto(userDto, userEntity);
 
         return userMapper.convertUserEntityToDto(userEntity);
     }
 
     public UserDto createUser(UserDto userDto) {
         UserEntity userEntity = userMapper.convertUserDtoToEntity(userDto);
+        handleFavouriteMembersFromDtoToEntity(userEntity, userDto);
+
         UserEntity savedUserEntity = userRepository.save(userEntity);
         return userMapper.convertUserEntityToDto(savedUserEntity);
     }
@@ -49,7 +53,17 @@ public class UserService {
         userEntity.setUsername(userDto.getUsername());
         userEntity.setPassword(userDto.getPassword());
         userEntity.setEmail(userDto.getEmail());
+        handleFavouriteMembersFromDtoToEntity(userEntity, userDto);
 
+        UserEntity updatedUserEntity = userRepository.save(userEntity);
+        return userMapper.convertUserEntityToDto(updatedUserEntity);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    public void handleFavouriteMembersFromDtoToEntity(UserEntity userEntity, UserDto userDto) {
         List<HotelEntity> favouriteHotels = hotelMapper.convertListHotelDtoToListHotelEntity(userDto.getFavouriteHotels());
         List<CottageEntity> favouriteCottages = cottageMapper.convertListCottageDtoToListCottageEntity(userDto.getFavouriteCottages());
         List<RouteEntity> favouriteRoutes = routeMapper.convertListRouteDtoToListRouteEntity(userDto.getFavouriteRoutes());
@@ -59,13 +73,18 @@ public class UserService {
         userEntity.setFavouriteCottages(favouriteCottages);
         userEntity.setFavouriteRoutes(favouriteRoutes);
         userEntity.setFavouriteAttractions(favouriteAttractions);
-
-        UserEntity updatedUserEntity = userRepository.save(userEntity);
-        return userMapper.convertUserEntityToDto(updatedUserEntity);
     }
 
-    public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
+    public void handleFavouriteMembersFromEntityToDto(UserDto userDto, UserEntity userEntity) {
+        List<HotelDto> favouriteHotels = hotelMapper.convertListHotelEntityToListHotelDto(userEntity.getFavouriteHotels());
+        List<CottageDto> favouriteCottages = cottageMapper.convertListCottageEntityToListCottageDto(userEntity.getFavouriteCottages());
+        List<RouteDto> favouriteRoutes = routeMapper.convertListRouteEntityToListRouteDto(userEntity.getFavouriteRoutes());
+        List<AttractionDto> favouriteAttractions = attractionMapper.convertListEntityToDto(userEntity.getFavouriteAttractions());
+
+        userDto.setFavouriteHotels(favouriteHotels);
+        userDto.setFavouriteCottages(favouriteCottages);
+        userDto.setFavouriteRoutes(favouriteRoutes);
+        userDto.setFavouriteAttractions(favouriteAttractions);
     }
 }
 

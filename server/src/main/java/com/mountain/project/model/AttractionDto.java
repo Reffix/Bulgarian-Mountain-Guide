@@ -2,6 +2,7 @@ package com.mountain.project.model;
 
 import com.mountain.project.enums.Mountain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AttractionDto {
@@ -11,14 +12,11 @@ public class AttractionDto {
     private String description;
     private String location;
     private boolean premium;
-    private List<UserDto> favouredByUserIds;
+    private List<UserDto> favouredByUserIds = new ArrayList<>();
 
     private String picture;
 
     private Mountain mountain;
-
-    public AttractionDto() {
-    }
 
     public Long getId() {
         return id;

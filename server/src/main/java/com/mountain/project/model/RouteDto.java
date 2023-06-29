@@ -1,5 +1,6 @@
 package com.mountain.project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RouteDto {
@@ -10,7 +11,7 @@ public class RouteDto {
     private String endPoint;
     private Float distance;
     private Float denivelation;
-    private List<UserDto> favouredByUsers;
+    private List<UserDto> favouredByUsers = new ArrayList<>();
 
     public RouteDto() {
     }

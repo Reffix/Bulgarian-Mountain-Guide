@@ -32,7 +32,7 @@ public class AttractionEntity {
     @Column(name = "mountain")
     private Mountain mountain;
 
-    @ManyToMany(mappedBy = "favouriteAttractions")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteAttractions")
     private List<UserEntity> favouredByUsers;
 
     public Long getId() {

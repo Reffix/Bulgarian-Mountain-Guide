@@ -11,18 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
-    private final HotelMapper hotelMapper;
-    private final CottageMapper cottageMapper;
-    private final RouteMapper routeMapper;
-    private final AttractionMapper attractionMapper;
-
-    public UserMapper(HotelMapper hotelMapper, CottageMapper cottageMapper, RouteMapper routeMapper, AttractionMapper attractionMapper) {
-        this.hotelMapper = hotelMapper;
-        this.cottageMapper = cottageMapper;
-        this.routeMapper = routeMapper;
-        this.attractionMapper = attractionMapper;
-    }
-
     public UserDto convertUserEntityToDto(UserEntity userEntity) {
         UserDto userDto = new UserDto();
         userDto.setId(userEntity.getId());
@@ -31,15 +19,11 @@ public class UserMapper {
         userDto.setPassword(userEntity.getPassword());
         userDto.setEmail(userEntity.getEmail());
 
-        List<HotelDto> favouriteHotels = hotelMapper.convertListHotelEntityToListHotelDto(userEntity.getFavouriteHotels());
-        List<CottageDto> favouriteCottages = cottageMapper.convertListCottageEntityToListCottageDto(userEntity.getFavouriteCottages());
-        List<RouteDto> favouriteRoutes = routeMapper.convertListRouteEntityToListRouteDto(userEntity.getFavouriteRoutes());
-        List<AttractionDto> favouriteAttractions = attractionMapper.convertListEntityToDto(userEntity.getFavouriteAttractions());
-
-        userDto.setFavouriteHotels(favouriteHotels);
-        userDto.setFavouriteCottages(favouriteCottages);
-        userDto.setFavouriteRoutes(favouriteRoutes);
-        userDto.setFavouriteAttractions(favouriteAttractions);
+        //many to many relations will be handled in the service layer
+        userDto.setFavouriteHotels(null);
+        userDto.setFavouriteCottages(null);
+        userDto.setFavouriteRoutes(null);
+        userDto.setFavouriteAttractions(null);
 
         return userDto;
     }
@@ -59,15 +43,11 @@ public class UserMapper {
         userEntity.setUsername(userDto.getUsername());
         userEntity.setPassword(userDto.getPassword());
 
-        List<HotelEntity> favouriteHotels = hotelMapper.convertListHotelDtoToListHotelEntity(userDto.getFavouriteHotels());
-        List<CottageEntity> favouriteCottages = cottageMapper.convertListCottageDtoToListCottageEntity(userDto.getFavouriteCottages());
-        List<RouteEntity> favouriteRoutes = routeMapper.convertListRouteDtoToListRouteEntity(userDto.getFavouriteRoutes());
-        List<AttractionEntity> favouriteAttractions = attractionMapper.convertListDtoToEntity(userDto.getFavouriteAttractions());
-
-        userEntity.setFavouriteHotels(favouriteHotels);
-        userEntity.setFavouriteCottages(favouriteCottages);
-        userEntity.setFavouriteRoutes(favouriteRoutes);
-        userEntity.setFavouriteAttractions(favouriteAttractions);
+        //many to many relations will be handled in the service layer
+        userEntity.setFavouriteHotels(null);
+        userEntity.setFavouriteCottages(null);
+        userEntity.setFavouriteRoutes(null);
+        userEntity.setFavouriteAttractions(null);
 
         return userEntity;
     }

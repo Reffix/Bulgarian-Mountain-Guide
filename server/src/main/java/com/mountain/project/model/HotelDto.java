@@ -1,5 +1,6 @@
 package com.mountain.project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelDto {
@@ -10,7 +11,7 @@ public class HotelDto {
     private String linkToSite;
     private String picture;
     private boolean premium;
-    private List<UserDto> favouredByUserIds;
+    private List<UserDto> favouredByUserIds = new ArrayList<>();
 
     public Long getId() {
         return id;

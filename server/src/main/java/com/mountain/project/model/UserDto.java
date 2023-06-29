@@ -1,5 +1,6 @@
 package com.mountain.project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDto {
@@ -9,13 +10,10 @@ public class UserDto {
     private String username;
     private String password;
     private String email;
-    private List<HotelDto> favouriteHotels;
-    private List<CottageDto> favouriteCottages;
-    private List<RouteDto> favouriteRoutes;
-    private List<AttractionDto> favouriteAttractions;
-
-    public UserDto() {
-    }
+    private List<HotelDto> favouriteHotels = new ArrayList<>();
+    private List<CottageDto> favouriteCottages = new ArrayList<>();
+    private List<RouteDto> favouriteRoutes = new ArrayList<>();
+    private List<AttractionDto> favouriteAttractions = new ArrayList<>();
 
     public Long getId() {
         return id;

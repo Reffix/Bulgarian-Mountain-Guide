@@ -1,5 +1,6 @@
 package com.mountain.project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CottageDto {
@@ -8,7 +9,7 @@ public class CottageDto {
     private String name;
     private String description;
     private Boolean premium;
-    private List<UserDto> favouredByUserIds;
+    private List<UserDto> favouredByUserIds = new ArrayList<>();
 
     public CottageDto() {
     }
@@ -36,8 +37,6 @@ public class CottageDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 
     public Boolean getPremium() {
         return premium;

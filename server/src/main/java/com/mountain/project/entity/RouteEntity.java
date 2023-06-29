@@ -26,7 +26,7 @@ public class RouteEntity {
     @Column(name = "denivelation")
     private Float denivelation;
 
-    @ManyToMany(mappedBy = "favouriteRoutes")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteRoutes")
     private List<UserEntity> favouredByUsers;
 
     public Long getId() {
