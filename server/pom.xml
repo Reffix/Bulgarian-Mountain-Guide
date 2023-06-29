@@ -99,9 +99,8 @@
 						</goals>
 						<configuration>
 							<apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
-							<outputFileName>openapi</outputFileName>
+							<outputFileName>endpoint_documentation.json</outputFileName>
 							<outputDir>E:\Domino\Bulgarian-Mountain-Guide</outputDir>
-							<outputFormat>JSON</outputFormat>
 						</configuration>
 					</execution>
 				</executions>
