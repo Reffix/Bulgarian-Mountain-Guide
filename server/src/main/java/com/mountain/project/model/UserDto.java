@@ -1,9 +1,11 @@
 package com.mountain.project.model;
 
+import com.mountain.project.enums.UserRole;
+
 public class UserDto {
 
     private Long id;
-    private boolean isAdmin;
+    private UserRole userRole;
     private String username;
     private String password;
     private String email;
@@ -14,10 +16,10 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, boolean isAdmin, String username, String password, String email, Integer favouriteHotels,
+    public UserDto(Long id, UserRole userRole, String username, String password, String email, Integer favouriteHotels,
             Integer favouriteCottages, Integer favouriteRoutes) {
         this.id = id;
-        this.isAdmin = isAdmin;
+        this.userRole = userRole;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -34,12 +36,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public String getUsername() {

@@ -24,15 +24,15 @@ public class LandmarkController {
         this.landmarkService = landmarkService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/landmark/{id}")
     public ResponseEntity<LandmarkDto> getLandmarkById(@PathVariable Long id) {
         LandmarkDto landmarkDto = landmarkService.getLandmarkById(id);
         return ResponseEntity.ok(landmarkDto);
     }
 
-    @GetMapping
-    public ResponseEntity<List<LandmarkDto>> getAllLandmarks() {
-        List<LandmarkDto> landmarkDtos = landmarkService.getAllLandmarks();
+    @GetMapping("/{mountain}")
+    public ResponseEntity<List<LandmarkDto>> getAllLandmarksForMountain(@PathVariable String mountain) {
+        List<LandmarkDto> landmarkDtos = landmarkService.getAllLandmarksForMountain(mountain);
         return ResponseEntity.ok(landmarkDtos);
     }
 

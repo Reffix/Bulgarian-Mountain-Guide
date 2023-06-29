@@ -1,20 +1,24 @@
 package com.mountain.project.model;
 
+import com.mountain.project.enums.Mountain;
+
 public class CottageDto {
 
     private Long id;
     private String name;
     private String description;
     private Boolean premium;
+    private Mountain mountain;
 
     public CottageDto() {
     }
 
-    public CottageDto(Long id, String name, String description, Boolean premium) {
+    public CottageDto(Long id, String name, String description, Boolean premium, Mountain mountain) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.premium = premium;
+        this.mountain = mountain;
     }
 
     public Long getId() {
@@ -41,13 +45,19 @@ public class CottageDto {
         this.description = description;
     }
 
-
-
     public Boolean getPremium() {
         return premium;
     }
 
     public void setPremium(Boolean premium) {
         this.premium = premium;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }

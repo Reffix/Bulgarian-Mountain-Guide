@@ -25,15 +25,15 @@ public class FloraController {
         this.floraService = floraService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/flora/{id}")
     public ResponseEntity<FloraDto> getFloraById(@PathVariable Long id) {
         FloraDto floraDto = floraService.getFloraById(id);
         return ResponseEntity.ok(floraDto);
     }
 
-    @GetMapping
-    public ResponseEntity<List<FloraDto>> getAllFloras() {
-        List<FloraDto> floraDtos = floraService.getAllFloras();
+    @GetMapping("/{mountain}")
+    public ResponseEntity<List<FloraDto>> getAllFlorasForMountain(String mountain) {
+        List<FloraDto> floraDtos = floraService.getAllFlorasForMountain(mountain);
         return ResponseEntity.ok(floraDtos);
     }
 

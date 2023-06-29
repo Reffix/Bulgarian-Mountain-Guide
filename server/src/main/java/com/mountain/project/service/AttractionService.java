@@ -1,11 +1,13 @@
 package com.mountain.project.service;
 
 import com.mountain.project.entity.AttractionEntity;
+import com.mountain.project.enums.Mountain;
 import com.mountain.project.mapper.AttractionMapper;
 import com.mountain.project.model.AttractionDto;
 import com.mountain.project.repository.AttractionRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,12 @@ public class AttractionService {
         this.attractionMapper = attractionMapper;
     }
 
-    public List<AttractionDto> getAllAttractions() {
-        List<AttractionEntity> attractionEntities = attractionRepository.findAll();
-        return attractionMapper.convertListEntityToDto(attractionEntities);
+    public List<AttractionDto> getAllAttractionsForMountain(String mountain) {
+        List<AttractionEntity> attractions = attractionRepository.findAll().stream()
+                .filter(attractionEntity -> attractionEntity.getMountain().name().equals(mountain.toUpperCase()))
+                .toList();
+
+        return attractionMapper.convertListEntityToDto(attractions);
     }
 
     public AttractionDto getAttractionById(Long id) {

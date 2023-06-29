@@ -1,9 +1,9 @@
 package com.mountain.project.enums;
 
 public enum Mountain {
-    Rila,
-    Pirin,
-    Vitosha,
-    Rodopi,
-    StaraPlanina
+    RILA,
+    PIRIN,
+    VITOSHA,
+    RODOPI,
+    STARAPLANINA
 }

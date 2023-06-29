@@ -1,5 +1,7 @@
 package com.mountain.project.model;
 
+import com.mountain.project.enums.Mountain;
+
 public class RouteDto {
 
     private Long id;
@@ -8,11 +10,12 @@ public class RouteDto {
     private String endPoint;
     private Float distance;
     private Float denivelation;
+    private Mountain mountain;
 
     public RouteDto() {
     }
 
-    public RouteDto(Long id, Integer type, String startPoint, String endPoint, Float distance, Float denivelation) {
+    public RouteDto(Long id, Integer type, String startPoint, String endPoint, Float distance, Float denivelation, Mountain mountain) {
         this.id = id;
         this.type = type;
         this.startPoint = startPoint;
@@ -67,6 +70,14 @@ public class RouteDto {
 
     public void setDenivelation(Float denivelation) {
         this.denivelation = denivelation;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }
 

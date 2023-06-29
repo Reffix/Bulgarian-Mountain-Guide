@@ -24,15 +24,15 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/hotel/{id}")
     public ResponseEntity<HotelDto> getHotelById(@PathVariable Long id) {
         HotelDto hotel = hotelService.getHotelById(id);
         return ResponseEntity.ok(hotel);
     }
 
-    @GetMapping
-    public ResponseEntity<List<HotelDto>> getAllHotels() {
-        List<HotelDto> hotels = hotelService.getAllHotels();
+    @GetMapping("/{mountain}")
+    public ResponseEntity<List<HotelDto>> getAllHotelsForMountain(@PathVariable String mountain) {
+        List<HotelDto> hotels = hotelService.getAllHotelsForMountain(mountain);
         return ResponseEntity.ok(hotels);
     }
 

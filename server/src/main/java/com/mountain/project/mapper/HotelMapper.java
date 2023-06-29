@@ -18,6 +18,7 @@ public class HotelMapper {
         hotelDto.setLinkToSite(hotelEntity.getLinkToSite());
         hotelDto.setPicture(hotelEntity.getPicture());
         hotelDto.setPremium(hotelEntity.isPremium());
+        hotelDto.setMountain(hotelEntity.getMountain());
         return hotelDto;
     }
 
@@ -38,6 +39,7 @@ public class HotelMapper {
         hotelEntity.setLinkToSite(hotelDto.getLinkToSite());
         hotelEntity.setPicture(hotelDto.getPicture());
         hotelEntity.setPremium(hotelDto.isPremium());
+        hotelEntity.setMountain(hotelDto.getMountain());
         return hotelEntity;
     }
 

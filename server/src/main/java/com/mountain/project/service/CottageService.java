@@ -1,5 +1,6 @@
 package com.mountain.project.service;
 
+import com.mountain.project.entity.AttractionEntity;
 import com.mountain.project.entity.CottageEntity;
 import com.mountain.project.mapper.CottageMapper;
 import com.mountain.project.model.CottageDto;
@@ -19,8 +20,10 @@ public class CottageService {
         this.cottageMapper = cottageMapper;
     }
 
-    public List<CottageDto> getAllCottages() {
-        List<CottageEntity> cottageEntities = cottageRepository.findAll();
+    public List<CottageDto> getAllCottagesForMountain(String mountain) {
+        List<CottageEntity> cottageEntities = cottageRepository.findAll().stream()
+                .filter(cottageEntity -> cottageEntity.getMountain().name().equals(mountain.toUpperCase()))
+                .toList();
         return cottageMapper.convertListCottageEntityToListCottageDto(cottageEntities);
     }
 

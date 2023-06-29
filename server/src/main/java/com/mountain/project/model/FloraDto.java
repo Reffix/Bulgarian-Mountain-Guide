@@ -1,5 +1,7 @@
 package com.mountain.project.model;
 
+import com.mountain.project.enums.Mountain;
+
 public class FloraDto {
 
     private Long id;
@@ -7,6 +9,7 @@ public class FloraDto {
     private String description;
     private Boolean edible;
     private String picture;
+    private Mountain mountain;
 
     public Long getId() {
         return id;
@@ -46,5 +49,13 @@ public class FloraDto {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }

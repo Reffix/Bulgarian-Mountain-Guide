@@ -23,12 +23,12 @@ public class CottageController {
         this.cottageService = cottageService;
     }
 
-    @GetMapping
-    public List<CottageDto> getAllCottages() {
-        return cottageService.getAllCottages();
+    @GetMapping("/{mountain}")
+    public List<CottageDto> getAllCottagesForMountain(@PathVariable String mountain) {
+        return cottageService.getAllCottagesForMountain(mountain);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/cottage/{id}")
     public CottageDto getCottageById(@PathVariable("id") Long id) {
         return cottageService.getCottageById(id);
     }

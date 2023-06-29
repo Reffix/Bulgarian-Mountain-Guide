@@ -1,5 +1,6 @@
 package com.mountain.project.service;
 
+import com.mountain.project.entity.AttractionEntity;
 import com.mountain.project.entity.HotelEntity;
 import com.mountain.project.mapper.HotelMapper;
 import com.mountain.project.model.HotelDto;
@@ -27,9 +28,11 @@ public class HotelService {
         return hotelMapper.convertHotelEntityToHotelDto(hotelEntity.get());
     }
 
-    public List<HotelDto> getAllHotels() {
-        List<HotelEntity> hotels = hotelRepository.findAll();
-        return hotelMapper.convertListHotelEntityToListHotelDto(hotels);
+    public List<HotelDto> getAllHotelsForMountain(String mountain) {
+        List<HotelEntity> hotelEntities = hotelRepository.findAll().stream()
+                .filter(hotelEntity -> hotelEntity.getMountain().name().equals(mountain.toUpperCase()))
+                .toList();
+        return hotelMapper.convertListHotelEntityToListHotelDto(hotelEntities);
     }
 
     public HotelDto createHotel(HotelDto hotelDto) {

@@ -16,6 +16,7 @@ public class FloraMapper {
         floraDto.setDescription(floraEntity.getDescription());
         floraDto.setEdible(floraEntity.getEdible());
         floraDto.setPicture(floraEntity.getPicture());
+        floraDto.setMountain(floraEntity.getMountain());
         return floraDto;
     }
 
@@ -33,6 +34,7 @@ public class FloraMapper {
         floraEntity.setDescription(floraDto.getDescription());
         floraEntity.setEdible(floraDto.getEdible());
         floraEntity.setPicture(floraDto.getPicture());
+        floraEntity.setMountain(floraDto.getMountain());
         return floraEntity;
     }
 

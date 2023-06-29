@@ -1,5 +1,7 @@
 package com.mountain.project.model;
 
+import com.mountain.project.enums.Mountain;
+
 public class FaunaDto {
 
     private Long id;
@@ -7,16 +9,18 @@ public class FaunaDto {
     private String description;
     private boolean dangerous;
     private String picture;
+    private Mountain mountain;
 
     public FaunaDto() {
     }
 
-    public FaunaDto(Long id, String name, String description, boolean dangerous, String picture) {
+    public FaunaDto(Long id, String name, String description, boolean dangerous, String picture, Mountain mountain) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.dangerous = dangerous;
         this.picture = picture;
+        this.mountain = mountain;
     }
 
     public Long getId() {
@@ -57,5 +61,13 @@ public class FaunaDto {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }
