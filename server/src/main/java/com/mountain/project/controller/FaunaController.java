@@ -28,7 +28,10 @@ public class FaunaController {
     @GetMapping("/fauna/{id}")
     public ResponseEntity<FaunaDto> getFaunaById(@PathVariable Long id) {
         FaunaDto fauna = faunaService.getFaunaById(id);
-        return ResponseEntity.ok(fauna);
+        if (fauna != null) {
+            return ResponseEntity.ok(fauna);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{mountain}")
@@ -46,7 +49,10 @@ public class FaunaController {
     @PutMapping("/{id}")
     public ResponseEntity<FaunaDto> updateFauna(@PathVariable Long id, @RequestBody FaunaDto faunaDto) {
         FaunaDto updatedFauna = faunaService.updateFauna(id, faunaDto);
-        return ResponseEntity.ok(updatedFauna);
+        if (updatedFauna != null) {
+            return ResponseEntity.ok(updatedFauna);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

@@ -27,7 +27,10 @@ public class LandmarkController {
     @GetMapping("/landmark/{id}")
     public ResponseEntity<LandmarkDto> getLandmarkById(@PathVariable Long id) {
         LandmarkDto landmarkDto = landmarkService.getLandmarkById(id);
-        return ResponseEntity.ok(landmarkDto);
+        if (landmarkDto != null) {
+            return ResponseEntity.ok(landmarkDto);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{mountain}")
@@ -45,7 +48,10 @@ public class LandmarkController {
     @PutMapping("/{id}")
     public ResponseEntity<LandmarkDto> updateLandmark(@PathVariable Long id, @RequestBody LandmarkDto landmarkDto) {
         LandmarkDto updatedLandmark = landmarkService.updateLandmark(id, landmarkDto);
-        return ResponseEntity.ok(updatedLandmark);
+        if (updatedLandmark != null) {
+            return ResponseEntity.ok(updatedLandmark);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

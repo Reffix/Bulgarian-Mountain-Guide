@@ -1,17 +1,22 @@
 package com.mountain.project.service;
 
-import com.mountain.project.entity.AttractionEntity;
 import com.mountain.project.entity.HotelEntity;
+import com.mountain.project.enums.Mountain;
 import com.mountain.project.mapper.HotelMapper;
 import com.mountain.project.model.HotelDto;
 import com.mountain.project.repository.HotelRepository;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 public class HotelService {
+
     private final HotelRepository hotelRepository;
     private final HotelMapper hotelMapper;
 
@@ -28,10 +33,9 @@ public class HotelService {
         return hotelMapper.convertHotelEntityToHotelDto(hotelEntity.get());
     }
 
-    public List<HotelDto> getAllHotelsForMountain(String mountain) {
-        List<HotelEntity> hotelEntities = hotelRepository.findAll().stream()
-                .filter(hotelEntity -> hotelEntity.getMountain().name().equals(mountain.toUpperCase()))
-                .toList();
+    public List<HotelDto> getAllHotelsForMountain(String mountain, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("premium").descending());
+        List<HotelEntity> hotelEntities = hotelRepository.findAllByMountain(Mountain.valueOf(mountain.toUpperCase()), pageable);
         return hotelMapper.convertListHotelEntityToListHotelDto(hotelEntities);
     }
 

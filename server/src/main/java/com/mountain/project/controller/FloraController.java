@@ -28,7 +28,10 @@ public class FloraController {
     @GetMapping("/flora/{id}")
     public ResponseEntity<FloraDto> getFloraById(@PathVariable Long id) {
         FloraDto floraDto = floraService.getFloraById(id);
-        return ResponseEntity.ok(floraDto);
+        if (floraDto != null) {
+            return ResponseEntity.ok(floraDto);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{mountain}")
@@ -46,7 +49,10 @@ public class FloraController {
     @PutMapping("/{id}")
     public ResponseEntity<FloraDto> updateFlora(@PathVariable Long id, @RequestBody FloraDto floraDto) {
         FloraDto updatedFlora = floraService.updateFlora(id, floraDto);
-        return ResponseEntity.ok(updatedFlora);
+        if (updatedFlora != null) {
+            return ResponseEntity.ok(updatedFlora);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

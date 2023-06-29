@@ -26,9 +26,9 @@ public class AttractionController {
         this.attractionService = attractionService;
     }
 
-    @GetMapping("/{mountain}")
-    public ResponseEntity<List<AttractionDto>> getAllAttractionsForMountain(@PathVariable String mountain) {
-        List<AttractionDto> attractions = attractionService.getAllAttractionsForMountain(mountain);
+    @GetMapping("/{mountain}/{page}/{size}")
+    public ResponseEntity<List<AttractionDto>> getAllAttractionsForMountain(@PathVariable String mountain, @PathVariable int page, @PathVariable int size) {
+        List<AttractionDto> attractions = attractionService.getAllAttractionsForMountain(mountain, page, size);
         return ResponseEntity.ok(attractions);
     }
 

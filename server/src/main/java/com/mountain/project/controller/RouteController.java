@@ -25,8 +25,9 @@ public class RouteController {
     }
 
     @GetMapping("/{mountain}")
-    public List<RouteDto> getAllRoutesForMountain(@PathVariable String mountain) {
-        return routeService.getAllRoutesForMountain(mountain);
+    public ResponseEntity<List<RouteDto>> getAllRoutesForMountain(@PathVariable String mountain) {
+        List<RouteDto> allRoutesForMountain = routeService.getAllRoutesForMountain(mountain);
+        return ResponseEntity.ok(allRoutesForMountain);
     }
 
     @GetMapping("/route/{id}")
