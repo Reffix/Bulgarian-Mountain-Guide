@@ -39,16 +39,16 @@ public class UserController {
     }
 
     @PostMapping("/login/{username}/{password}")
-    public ResponseEntity<UserDto> login(@RequestParam("username") String username,
-            @RequestParam("password") String password) {
+    public ResponseEntity<UserDto> login(@PathVariable("username") String username,
+            @PathVariable("password") String password) {
         UserDto loggedInUser = userService.login(username, password);
         return ResponseEntity.ok(loggedInUser);
     }
 
     @PostMapping("/register/{username}/{password}/{email}")
-    public ResponseEntity<UserDto> register(@RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("email") String email) {
+    public ResponseEntity<UserDto> register(@PathVariable("username") String username,
+            @PathVariable("password") String password,
+            @PathVariable("email") String email) {
         UserDto registeredUser = userService.register(username, password, email);
         return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
     }
