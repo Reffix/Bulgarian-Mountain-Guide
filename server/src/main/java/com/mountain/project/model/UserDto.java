@@ -1,12 +1,14 @@
 package com.mountain.project.model;
 
+import com.mountain.project.enums.UserRole;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDto {
 
     private Long id;
-    private boolean isAdmin;
+    private UserRole userRole;
     private String username;
     private String password;
     private String email;
@@ -14,6 +16,7 @@ public class UserDto {
     private List<CottageDto> favouriteCottages = new ArrayList<>();
     private List<RouteDto> favouriteRoutes = new ArrayList<>();
     private List<AttractionDto> favouriteAttractions = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -23,12 +26,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public String getUsername() {

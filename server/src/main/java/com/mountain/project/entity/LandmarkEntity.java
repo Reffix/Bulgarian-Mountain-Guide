@@ -1,7 +1,10 @@
 package com.mountain.project.entity;
 
+import com.mountain.project.enums.Mountain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,14 +27,19 @@ public class LandmarkEntity {
     @Column(name = "location")
     private String location;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mountain")
+    private Mountain mountain;
+
     public LandmarkEntity() {
     }
 
-    public LandmarkEntity(Long id, String name, String description, String location) {
+    public LandmarkEntity(Long id, String name, String description, String location, Mountain mountain) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.location = location;
+        this.mountain = mountain;
     }
 
     public Long getId() {
@@ -64,5 +72,13 @@ public class LandmarkEntity {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }

@@ -26,6 +26,7 @@ public class HotelMapper {
         hotelDto.setLinkToSite(hotelEntity.getLinkToSite());
         hotelDto.setPicture(hotelEntity.getPicture());
         hotelDto.setPremium(hotelEntity.isPremium());
+        hotelDto.setMountain(hotelEntity.getMountain());
 
         List<UserDto> favouredByUsers = userMapper.convertListUserEntityToListUserDto(hotelEntity.getFavouredByUsers());
         hotelDto.setFavouredByUsers(favouredByUsers);
@@ -50,6 +51,7 @@ public class HotelMapper {
         hotelEntity.setLinkToSite(hotelDto.getLinkToSite());
         hotelEntity.setPicture(hotelDto.getPicture());
         hotelEntity.setPremium(hotelDto.isPremium());
+        hotelEntity.setMountain(hotelDto.getMountain());
 
         List<UserEntity> favouredByUsers = userMapper.convertListUserDtoToListUserEntity(hotelDto.getFavouredByUsers());
         hotelEntity.setFavouredByUsers(favouredByUsers);

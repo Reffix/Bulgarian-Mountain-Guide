@@ -25,6 +25,7 @@ public class RouteMapper {
         routeDto.setEndPoint(routeEntity.getEndPoint());
         routeDto.setDistance(routeEntity.getDistance());
         routeDto.setDenivelation(routeEntity.getDenivelation());
+        routeDto.setMountain(routeEntity.getMountain());
 
         List<UserDto> favouriteByUsers = userMapper.convertListUserEntityToListUserDto(routeEntity.getFavouredByUsers());
         routeDto.setFavouredByUsers(favouriteByUsers);
@@ -48,6 +49,7 @@ public class RouteMapper {
         routeEntity.setEndPoint(routeDto.getEndPoint());
         routeEntity.setDistance(routeDto.getDistance());
         routeEntity.setDenivelation(routeDto.getDenivelation());
+        routeEntity.setMountain(routeDto.getMountain());
 
         List<UserEntity> favouriteByUsers = userMapper.convertListUserDtoToListUserEntity(routeDto.getFavouredByUsers());
         routeEntity.setFavouredByUsers(favouriteByUsers);

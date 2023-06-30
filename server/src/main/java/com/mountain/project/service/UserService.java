@@ -4,6 +4,12 @@ import com.mountain.project.entity.*;
 import com.mountain.project.mapper.*;
 import com.mountain.project.model.*;
 import com.mountain.project.repository.*;
+import com.mountain.project.entity.UserEntity;
+import com.mountain.project.enums.UserRole;
+import com.mountain.project.mapper.UserMapper;
+import com.mountain.project.model.UserDto;
+import com.mountain.project.repository.UserRepository;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -77,7 +83,11 @@ public class UserService {
         userEntity.setPassword(userDto.getPassword());
         userEntity.setEmail(userDto.getEmail());
         handleFavouriteMembersFromDtoToEntity(userEntity, userDto);
+    public UserDto login(String username, String password) {
+        UserEntity userEntity = userRepository.findByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new EntityNotFoundException("Invalid credentials"));
 
+        return userMapper.convertUserEntityToDto(userEntity);
         UserEntity updatedUserEntity = userRepository.save(userEntity);
         UserDto result = userMapper.convertUserEntityToDto(updatedUserEntity);
         handleFavouriteMembersFromEntityToDto(result,updatedUserEntity);
@@ -85,8 +95,15 @@ public class UserService {
         return result;
     }
 
-    public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
+    public UserDto register(String username, String password, String email) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(username);
+        userEntity.setEmail(email);
+        userEntity.setPassword(password);
+        userEntity.setUserRole(UserRole.USER);
+
+        UserEntity savedUserEntity = userRepository.save(userEntity);
+        return userMapper.convertUserEntityToDto(savedUserEntity);
     }
 
     public UserDto addFavouredEntityToUser(Long userId, Map<String, Object> entityInfo) {

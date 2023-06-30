@@ -25,15 +25,18 @@ public class FloraController {
         this.floraService = floraService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/flora/{id}")
     public ResponseEntity<FloraDto> getFloraById(@PathVariable Long id) {
         FloraDto floraDto = floraService.getFloraById(id);
-        return ResponseEntity.ok(floraDto);
+        if (floraDto != null) {
+            return ResponseEntity.ok(floraDto);
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<FloraDto>> getAllFloras() {
-        List<FloraDto> floraDtos = floraService.getAllFloras();
+    @GetMapping("/{mountain}")
+    public ResponseEntity<List<FloraDto>> getAllFlorasForMountain(String mountain) {
+        List<FloraDto> floraDtos = floraService.getAllFlorasForMountain(mountain);
         return ResponseEntity.ok(floraDtos);
     }
 
@@ -46,7 +49,10 @@ public class FloraController {
     @PutMapping("/{id}")
     public ResponseEntity<FloraDto> updateFlora(@PathVariable Long id, @RequestBody FloraDto floraDto) {
         FloraDto updatedFlora = floraService.updateFlora(id, floraDto);
-        return ResponseEntity.ok(updatedFlora);
+        if (updatedFlora != null) {
+            return ResponseEntity.ok(updatedFlora);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

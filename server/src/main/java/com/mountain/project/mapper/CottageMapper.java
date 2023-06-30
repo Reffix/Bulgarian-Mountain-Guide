@@ -23,6 +23,7 @@ public class CottageMapper {
         cottageDto.setName(cottageEntity.getName());
         cottageDto.setDescription(cottageEntity.getDescription());
         cottageDto.setPremium(cottageEntity.getPremium());
+        cottageDto.setMountain(cottageEntity.getMountain());
 
         List<UserDto> favouriteByUsers = userMapper.convertListUserEntityToListUserDto(cottageEntity.getFavouriteByUsers());
         cottageDto.setFavouredByUsers(favouriteByUsers);
@@ -44,6 +45,7 @@ public class CottageMapper {
         cottageEntity.setName(cottageDto.getName());
         cottageEntity.setDescription(cottageDto.getDescription());
         cottageEntity.setPremium(cottageDto.getPremium());
+        cottageEntity.setMountain(cottageDto.getMountain());
 
         List<UserEntity> favouriteByUsers = userMapper.convertListUserDtoToListUserEntity(cottageDto.getFavouredByUsers());
         cottageEntity.setFavouriteByUsers(favouriteByUsers);

@@ -14,7 +14,7 @@ public class UserMapper {
     public UserDto convertUserEntityToDto(UserEntity userEntity) {
         UserDto userDto = new UserDto();
         userDto.setId(userEntity.getId());
-        userDto.setAdmin(userEntity.isAdmin());
+        userDto.setUserRole(userEntity.getUserRole());
         userDto.setUsername(userEntity.getUsername());
         userDto.setPassword(userEntity.getPassword());
         userDto.setEmail(userEntity.getEmail());
@@ -39,7 +39,7 @@ public class UserMapper {
     public UserEntity convertUserDtoToEntity(UserDto userDto) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDto.getId());
-        userEntity.setAdmin(userDto.isAdmin());
+        userEntity.setUserRole(userDto.getUserRole());
         userEntity.setUsername(userDto.getUsername());
         userEntity.setPassword(userDto.getPassword());
 

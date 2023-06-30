@@ -15,6 +15,7 @@ public class LandmarkMapper {
         landmarkDto.setName(landmarkEntity.getName());
         landmarkDto.setDescription(landmarkEntity.getDescription());
         landmarkDto.setLocation(landmarkEntity.getLocation());
+        landmarkDto.setMountain(landmarkEntity.getMountain());
         return landmarkDto;
     }
 
@@ -30,6 +31,7 @@ public class LandmarkMapper {
         landmarkEntity.setName(landmarkDto.getName());
         landmarkEntity.setDescription(landmarkDto.getDescription());
         landmarkEntity.setLocation(landmarkDto.getLocation());
+        landmarkEntity.setMountain(landmarkDto.getMountain());
         return landmarkEntity;
     }
 

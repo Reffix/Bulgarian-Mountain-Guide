@@ -1,5 +1,14 @@
 package com.mountain.project.entity;
 
+import com.mountain.project.enums.Mountain;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,6 +34,10 @@ public class RouteEntity {
 
     @Column(name = "denivelation")
     private Float denivelation;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mountain")
+    private Mountain mountain;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteRoutes")
     private List<UserEntity> favouredByUsers;
@@ -77,6 +90,13 @@ public class RouteEntity {
         this.denivelation = denivelation;
     }
 
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
+    }
     public List<UserEntity> getFavouredByUsers() {
         return favouredByUsers;
     }

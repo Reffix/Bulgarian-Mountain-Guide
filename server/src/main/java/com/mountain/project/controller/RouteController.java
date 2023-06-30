@@ -24,12 +24,13 @@ public class RouteController {
         this.routeService = routeService;
     }
 
-    @GetMapping
-    public List<RouteDto> getAllRoutes() {
-        return routeService.getAllRoutes();
+    @GetMapping("/{mountain}")
+    public ResponseEntity<List<RouteDto>> getAllRoutesForMountain(@PathVariable String mountain) {
+        List<RouteDto> allRoutesForMountain = routeService.getAllRoutesForMountain(mountain);
+        return ResponseEntity.ok(allRoutesForMountain);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/route/{id}")
     public ResponseEntity<RouteDto> getRouteById(@PathVariable Long id) {
         RouteDto routeDto = routeService.getRouteById(id);
         if (routeDto != null) {

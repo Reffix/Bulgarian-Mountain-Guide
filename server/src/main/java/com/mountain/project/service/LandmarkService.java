@@ -1,5 +1,6 @@
 package com.mountain.project.service;
 
+import com.mountain.project.entity.HotelEntity;
 import com.mountain.project.entity.LandmarkEntity;
 import com.mountain.project.mapper.LandmarkMapper;
 import com.mountain.project.model.LandmarkDto;
@@ -28,9 +29,11 @@ public class LandmarkService {
         return landmarkMapper.convertLandmarkEntityToLandmarkDto(landmarkEntity.get());
     }
 
-    public List<LandmarkDto> getAllLandmarks() {
-        List<LandmarkEntity> landmarks = landmarkRepository.findAll();
-        return landmarkMapper.convertListLandmarkEntityToListLandmarkDto(landmarks);
+    public List<LandmarkDto> getAllLandmarksForMountain(String mountain) {
+        List<LandmarkEntity> landmarkEntities = landmarkRepository.findAll().stream()
+                .filter(landmarkEntity -> landmarkEntity.getMountain().name().equals(mountain.toUpperCase()))
+                .toList();
+        return landmarkMapper.convertListLandmarkEntityToListLandmarkDto(landmarkEntities);
     }
 
     public LandmarkDto createLandmark(LandmarkDto landmarkDto) {

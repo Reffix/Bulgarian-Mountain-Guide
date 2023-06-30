@@ -2,6 +2,15 @@ package com.mountain.project.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import com.mountain.project.enums.Mountain;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "cottages")
@@ -19,6 +28,10 @@ public class CottageEntity {
 
     @Column(name = "premium")
     private Boolean premium;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mountain")
+    private Mountain mountain;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteCottages")
     private List<UserEntity> favouredByUsers;
@@ -53,6 +66,14 @@ public class CottageEntity {
 
     public void setPremium(Boolean premium) {
         this.premium = premium;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 
     public List<UserEntity> getFavouriteByUsers() {

@@ -16,6 +16,7 @@ public class FaunaMapper {
         faunaDto.setDescription(faunaEntity.getDescription());
         faunaDto.setDangerous(faunaEntity.isDangerous());
         faunaDto.setPicture(faunaEntity.getPicture());
+        faunaDto.setMountain(faunaEntity.getMountain());
         return faunaDto;
     }
 
@@ -34,6 +35,7 @@ public class FaunaMapper {
         faunaEntity.setDescription(faunaDto.getDescription());
         faunaEntity.setDangerous(faunaDto.isDangerous());
         faunaEntity.setPicture(faunaDto.getPicture());
+        faunaEntity.setMountain(faunaDto.getMountain());
         return faunaEntity;
     }
 

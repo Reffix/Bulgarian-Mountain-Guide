@@ -24,15 +24,18 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/hotel/{id}")
     public ResponseEntity<HotelDto> getHotelById(@PathVariable Long id) {
         HotelDto hotel = hotelService.getHotelById(id);
-        return ResponseEntity.ok(hotel);
+        if (hotel != null) {
+            return ResponseEntity.ok(hotel);
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<HotelDto>> getAllHotels() {
-        List<HotelDto> hotels = hotelService.getAllHotels();
+    @GetMapping("/{mountain}/{page}/{size}")
+    public ResponseEntity<List<HotelDto>> getAllHotelsForMountain(@PathVariable String mountain, @PathVariable int page, @PathVariable int size) {
+        List<HotelDto> hotels = hotelService.getAllHotelsForMountain(mountain, page, size);
         return ResponseEntity.ok(hotels);
     }
 
@@ -45,7 +48,10 @@ public class HotelController {
     @PutMapping("/{id}")
     public ResponseEntity<HotelDto> updateHotel(@PathVariable Long id, @RequestBody HotelDto hotelDto) {
         HotelDto updatedHotel = hotelService.updateHotel(id, hotelDto);
-        return ResponseEntity.ok(updatedHotel);
+        if (updatedHotel != null) {
+            return ResponseEntity.ok(updatedHotel);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
