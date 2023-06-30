@@ -1,7 +1,10 @@
 package com.mountain.project.entity;
 
+import com.mountain.project.enums.Mountain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,12 +30,17 @@ public class FaunaEntity {
     @Column(name = "picture")
     private String picture;
 
-    public FaunaEntity(Long id, String name, String description, boolean dangerous, String picture) {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mountain")
+    private Mountain mountain;
+
+    public FaunaEntity(Long id, String name, String description, boolean dangerous, String picture, Mountain mountain) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.dangerous = dangerous;
         this.picture = picture;
+        this.mountain = mountain;
     }
 
     public FaunaEntity() {
@@ -76,5 +84,13 @@ public class FaunaEntity {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
     }
 }

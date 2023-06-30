@@ -26,13 +26,13 @@ public class AttractionController {
         this.attractionService = attractionService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<AttractionDto>> getAllAttractions() {
-        List<AttractionDto> attractions = attractionService.getAllAttractions();
+    @GetMapping("/{mountain}/{page}/{size}")
+    public ResponseEntity<List<AttractionDto>> getAllAttractionsForMountain(@PathVariable String mountain, @PathVariable int page, @PathVariable int size) {
+        List<AttractionDto> attractions = attractionService.getAllAttractionsForMountain(mountain, page, size);
         return ResponseEntity.ok(attractions);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/attraction/{id}")
     public ResponseEntity<AttractionDto> getAttractionById(@PathVariable Long id) {
         AttractionDto attractionDto = attractionService.getAttractionById(id);
         if (attractionDto != null) {

@@ -1,5 +1,6 @@
 package com.mountain.project.service;
 
+import com.mountain.project.entity.AttractionEntity;
 import com.mountain.project.entity.FloraEntity;
 import com.mountain.project.mapper.FloraMapper;
 import com.mountain.project.model.FloraDto;
@@ -29,8 +30,10 @@ public class FloraService {
         return floraMapper.convertFloraEntityToFloraDto(floraEntity.get());
     }
 
-    public List<FloraDto> getAllFloras() {
-        List<FloraEntity> floras = floraRepository.findAll();
+    public List<FloraDto> getAllFlorasForMountain(String mountain) {
+        List<FloraEntity> floras = floraRepository.findAll().stream()
+                .filter(floraEntity -> floraEntity.getMountain().name().equals(mountain.toUpperCase()))
+                .toList();
         return floraMapper.convertListFloraEntityToListFloraDto(floras);
     }
 

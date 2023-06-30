@@ -4,13 +4,12 @@ import com.mountain.project.model.UserDto;
 import com.mountain.project.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,7 +26,10 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId) {
         UserDto user = userService.getUserById(userId);
-        return ResponseEntity.ok(user);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
@@ -36,16 +38,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId, @RequestBody UserDto userDto) {
-        UserDto updatedUser = userService.updateUser(userId, userDto);
-        return ResponseEntity.ok(updatedUser);
+    @PostMapping("/login/{username}/{password}")
+    public ResponseEntity<UserDto> login(@PathVariable("username") String username,
+            @PathVariable("password") String password) {
+        UserDto loggedInUser = userService.login(username, password);
+        return ResponseEntity.ok(loggedInUser);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long userId) {
-        userService.deleteUser(userId);
-        return ResponseEntity.noContent().build();
+    @PostMapping("/register/{username}/{password}/{email}")
+    public ResponseEntity<UserDto> register(@PathVariable("username") String username,
+            @PathVariable("password") String password,
+            @PathVariable("email") String email) {
+        UserDto registeredUser = userService.register(username, password, email);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
     }
 }
 

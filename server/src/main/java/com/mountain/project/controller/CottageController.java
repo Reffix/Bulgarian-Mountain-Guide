@@ -3,6 +3,7 @@ package com.mountain.project.controller;
 import com.mountain.project.model.CottageDto;
 import com.mountain.project.service.CottageService;
 import java.util.List;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,24 +24,34 @@ public class CottageController {
         this.cottageService = cottageService;
     }
 
-    @GetMapping
-    public List<CottageDto> getAllCottages() {
-        return cottageService.getAllCottages();
+    @GetMapping("/{mountain}/{page}/{size}")
+    public ResponseEntity<List<CottageDto>> getAllCottagesForMountain(@PathVariable String mountain, @PathVariable int page, @PathVariable int size) {
+        List<CottageDto> allCottagesForMountain = cottageService.getAllCottagesForMountain(mountain, page, size);
+        return ResponseEntity.ok(allCottagesForMountain);
     }
 
-    @GetMapping("/{id}")
-    public CottageDto getCottageById(@PathVariable("id") Long id) {
-        return cottageService.getCottageById(id);
+    @GetMapping("/cottage/{id}")
+    public ResponseEntity<CottageDto> getCottageById(@PathVariable("id") Long id) {
+        CottageDto cottageById = cottageService.getCottageById(id);
+        if (cottageById != null) {
+            return ResponseEntity.ok(cottageById);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public CottageDto createCottage(@RequestBody CottageDto cottageDto) {
-        return cottageService.createCottage(cottageDto);
+    public ResponseEntity<CottageDto> createCottage(@RequestBody CottageDto cottageDto) {
+        CottageDto cottage = cottageService.createCottage(cottageDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cottage);
     }
 
     @PutMapping("/{id}")
-    public CottageDto updateCottage(@PathVariable("id") Long id, @RequestBody CottageDto cottageDto) {
-        return cottageService.updateCottage(id, cottageDto);
+    public ResponseEntity<CottageDto> updateCottage(@PathVariable("id") Long id, @RequestBody CottageDto cottageDto) {
+        CottageDto cottage = cottageService.updateCottage(id, cottageDto);
+        if (cottage != null) {
+            return ResponseEntity.ok(cottage);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

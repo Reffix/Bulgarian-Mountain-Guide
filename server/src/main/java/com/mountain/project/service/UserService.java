@@ -1,6 +1,7 @@
 package com.mountain.project.service;
 
 import com.mountain.project.entity.UserEntity;
+import com.mountain.project.enums.UserRole;
 import com.mountain.project.mapper.UserMapper;
 import com.mountain.project.model.UserDto;
 import com.mountain.project.repository.UserRepository;
@@ -30,24 +31,22 @@ public class UserService {
         return userMapper.convertUserEntityToDto(savedUserEntity);
     }
 
-    public UserDto updateUser(Long userId, UserDto userDto) {
-        UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
+    public UserDto login(String username, String password) {
+        UserEntity userEntity = userRepository.findByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new EntityNotFoundException("Invalid credentials"));
 
-        userEntity.setAdmin(userDto.isAdmin());
-        userEntity.setUsername(userDto.getUsername());
-        userEntity.setPassword(userDto.getPassword());
-        userEntity.setEmail(userDto.getEmail());
-        userEntity.setFavouriteHotels(userDto.getFavouriteHotels());
-        userEntity.setFavouriteCottages(userDto.getFavouriteCottages());
-        userEntity.setFavouriteRoutes(userDto.getFavouriteRoutes());
-
-        UserEntity updatedUserEntity = userRepository.save(userEntity);
-        return userMapper.convertUserEntityToDto(updatedUserEntity);
+        return userMapper.convertUserEntityToDto(userEntity);
     }
 
-    public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
+    public UserDto register(String username, String password, String email) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(username);
+        userEntity.setEmail(email);
+        userEntity.setPassword(password);
+        userEntity.setUserRole(UserRole.USER);
+
+        UserEntity savedUserEntity = userRepository.save(userEntity);
+        return userMapper.convertUserEntityToDto(savedUserEntity);
     }
 }
 

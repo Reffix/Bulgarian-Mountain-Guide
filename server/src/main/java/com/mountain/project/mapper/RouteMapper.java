@@ -17,6 +17,7 @@ public class RouteMapper {
         routeDto.setEndPoint(routeEntity.getEndPoint());
         routeDto.setDistance(routeEntity.getDistance());
         routeDto.setDenivelation(routeEntity.getDenivelation());
+        routeDto.setMountain(routeEntity.getMountain());
         return routeDto;
     }
 
@@ -36,6 +37,7 @@ public class RouteMapper {
         routeEntity.setEndPoint(routeDto.getEndPoint());
         routeEntity.setDistance(routeDto.getDistance());
         routeEntity.setDenivelation(routeDto.getDenivelation());
+        routeEntity.setMountain(routeDto.getMountain());
         return routeEntity;
     }
 

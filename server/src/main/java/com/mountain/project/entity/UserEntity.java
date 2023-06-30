@@ -1,5 +1,6 @@
 package com.mountain.project.entity;
 
+import com.mountain.project.enums.UserRole;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +16,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "is_admin", nullable = false)
-    private boolean isAdmin;
+    @Column(name = "role", nullable = false)
+    private UserRole userRole;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -44,12 +45,12 @@ public class UserEntity {
         this.id = id;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public String getUsername() {

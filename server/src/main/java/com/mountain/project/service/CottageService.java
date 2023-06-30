@@ -1,11 +1,16 @@
 package com.mountain.project.service;
 
+import com.mountain.project.entity.AttractionEntity;
 import com.mountain.project.entity.CottageEntity;
+import com.mountain.project.enums.Mountain;
 import com.mountain.project.mapper.CottageMapper;
 import com.mountain.project.model.CottageDto;
 import com.mountain.project.repository.CottageRepository;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,8 +24,9 @@ public class CottageService {
         this.cottageMapper = cottageMapper;
     }
 
-    public List<CottageDto> getAllCottages() {
-        List<CottageEntity> cottageEntities = cottageRepository.findAll();
+    public List<CottageDto> getAllCottagesForMountain(String mountain, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("premium").descending());
+        List<CottageEntity> cottageEntities = cottageRepository.findAllByMountain(Mountain.valueOf(mountain.toUpperCase()), pageable);
         return cottageMapper.convertListCottageEntityToListCottageDto(cottageEntities);
     }
 

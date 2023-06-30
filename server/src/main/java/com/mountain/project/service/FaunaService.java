@@ -1,5 +1,6 @@
 package com.mountain.project.service;
 
+import com.mountain.project.entity.AttractionEntity;
 import com.mountain.project.entity.FaunaEntity;
 import com.mountain.project.mapper.FaunaMapper;
 import com.mountain.project.model.FaunaDto;
@@ -28,9 +29,11 @@ public class FaunaService {
         return faunaMapper.convertFaunaEntityToFaunaDto(faunaEntity.get());
     }
 
-    public List<FaunaDto> getAllFaunas() {
-        List<FaunaEntity> faunas = faunaRepository.findAll();
-        return faunaMapper.convertListFaunaEntityToListFaunaDto(faunas);
+    public List<FaunaDto> getAllFaunasForMountain(String mountain) {
+        List<FaunaEntity> faunaEntities = faunaRepository.findAll().stream()
+                .filter(faunaEntity -> faunaEntity.getMountain().name().equals(mountain.toUpperCase()))
+                .toList();
+        return faunaMapper.convertListFaunaEntityToListFaunaDto(faunaEntities);
     }
 
     public FaunaDto createFauna(FaunaDto faunaDto) {

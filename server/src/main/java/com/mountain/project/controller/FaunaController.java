@@ -1,5 +1,6 @@
 package com.mountain.project.controller;
 
+import com.mountain.project.enums.Mountain;
 import com.mountain.project.model.FaunaDto;
 import com.mountain.project.service.FaunaService;
 import java.util.List;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/faunas")
+@RequestMapping("/fauna")
 public class FaunaController {
 
     private final FaunaService faunaService;
@@ -24,15 +25,18 @@ public class FaunaController {
         this.faunaService = faunaService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/fauna/{id}")
     public ResponseEntity<FaunaDto> getFaunaById(@PathVariable Long id) {
         FaunaDto fauna = faunaService.getFaunaById(id);
-        return ResponseEntity.ok(fauna);
+        if (fauna != null) {
+            return ResponseEntity.ok(fauna);
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<FaunaDto>> getAllFaunas() {
-        List<FaunaDto> faunas = faunaService.getAllFaunas();
+    @GetMapping("/{mountain}")
+    public ResponseEntity<List<FaunaDto>> getAllFaunasForMountain(@PathVariable String mountain) {
+        List<FaunaDto> faunas = faunaService.getAllFaunasForMountain(mountain);
         return ResponseEntity.ok(faunas);
     }
 
@@ -45,7 +49,10 @@ public class FaunaController {
     @PutMapping("/{id}")
     public ResponseEntity<FaunaDto> updateFauna(@PathVariable Long id, @RequestBody FaunaDto faunaDto) {
         FaunaDto updatedFauna = faunaService.updateFauna(id, faunaDto);
-        return ResponseEntity.ok(updatedFauna);
+        if (updatedFauna != null) {
+            return ResponseEntity.ok(updatedFauna);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

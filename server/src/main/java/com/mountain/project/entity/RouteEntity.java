@@ -1,7 +1,10 @@
 package com.mountain.project.entity;
 
+import com.mountain.project.enums.Mountain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +32,10 @@ public class RouteEntity {
 
     @Column(name = "denivelation")
     private Float denivelation;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mountain")
+    private Mountain mountain;
 
     public Long getId() {
         return id;
@@ -78,5 +85,12 @@ public class RouteEntity {
         this.denivelation = denivelation;
     }
 
+    public Mountain getMountain() {
+        return mountain;
+    }
+
+    public void setMountain(Mountain mountain) {
+        this.mountain = mountain;
+    }
 }
 

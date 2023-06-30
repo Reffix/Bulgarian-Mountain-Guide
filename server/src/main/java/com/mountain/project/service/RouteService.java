@@ -1,5 +1,6 @@
 package com.mountain.project.service;
 
+import com.mountain.project.entity.HotelEntity;
 import com.mountain.project.entity.RouteEntity;
 import com.mountain.project.mapper.RouteMapper;
 import com.mountain.project.model.RouteDto;
@@ -19,8 +20,10 @@ public class RouteService {
         this.routeMapper = routeMapper;
     }
 
-    public List<RouteDto> getAllRoutes() {
-        List<RouteEntity> routeEntities = routeRepository.findAll();
+    public List<RouteDto> getAllRoutesForMountain(String mountain) {
+        List<RouteEntity> routeEntities = routeRepository.findAll().stream()
+                .filter(routeEntity -> routeEntity.getMountain().name().equals(mountain.toUpperCase()))
+                .toList();
         return routeMapper.convertListRouteEntityToListRouteDto(routeEntities);
     }
 
