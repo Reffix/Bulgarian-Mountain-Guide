@@ -1,5 +1,6 @@
 package com.mountain.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.mountain.project.enums.Mountain;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class AttractionEntity {
     private Mountain mountain;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteAttractions")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<UserEntity> favouredByUsers;
 
     public Long getId() {

@@ -2,6 +2,8 @@ package com.mountain.project.entity;
 
 import javax.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.mountain.project.enums.Mountain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +36,7 @@ public class CottageEntity {
     private Mountain mountain;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteCottages")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<UserEntity> favouredByUsers;
 
     public Long getId() {

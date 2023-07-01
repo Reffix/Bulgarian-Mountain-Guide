@@ -2,6 +2,9 @@ package com.mountain.project.entity;
 
 import javax.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mountain.project.enums.UserRole;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +15,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class UserEntity {
 
     @Id
