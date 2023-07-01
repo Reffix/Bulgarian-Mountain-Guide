@@ -2,6 +2,9 @@ package com.mountain.project.model;
 
 import com.mountain.project.enums.UserRole;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDto {
 
     private Long id;
@@ -9,24 +12,11 @@ public class UserDto {
     private String username;
     private String password;
     private String email;
-    private Integer favouriteHotels;
-    private Integer favouriteCottages;
-    private Integer favouriteRoutes;
+    private List<HotelDto> favouriteHotels = new ArrayList<>();
+    private List<CottageDto> favouriteCottages = new ArrayList<>();
+    private List<RouteDto> favouriteRoutes = new ArrayList<>();
+    private List<AttractionDto> favouriteAttractions = new ArrayList<>();
 
-    public UserDto() {
-    }
-
-    public UserDto(Long id, UserRole userRole, String username, String password, String email, Integer favouriteHotels,
-            Integer favouriteCottages, Integer favouriteRoutes) {
-        this.id = id;
-        this.userRole = userRole;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.favouriteHotels = favouriteHotels;
-        this.favouriteCottages = favouriteCottages;
-        this.favouriteRoutes = favouriteRoutes;
-    }
 
     public Long getId() {
         return id;
@@ -68,28 +58,36 @@ public class UserDto {
         this.email = email;
     }
 
-    public Integer getFavouriteHotels() {
+    public List<HotelDto> getFavouriteHotels() {
         return favouriteHotels;
     }
 
-    public void setFavouriteHotels(Integer favouriteHotels) {
+    public void setFavouriteHotels(List<HotelDto> favouriteHotels) {
         this.favouriteHotels = favouriteHotels;
     }
 
-    public Integer getFavouriteCottages() {
+    public List<CottageDto> getFavouriteCottages() {
         return favouriteCottages;
     }
 
-    public void setFavouriteCottages(Integer favouriteCottages) {
+    public void setFavouriteCottages(List<CottageDto> favouriteCottages) {
         this.favouriteCottages = favouriteCottages;
     }
 
-    public Integer getFavouriteRoutes() {
+    public List<RouteDto> getFavouriteRoutes() {
         return favouriteRoutes;
     }
 
-    public void setFavouriteRoutes(Integer favouriteRoutes) {
+    public void setFavouriteRoutes(List<RouteDto> favouriteRoutes) {
         this.favouriteRoutes = favouriteRoutes;
+    }
+
+    public List<AttractionDto> getFavouriteAttractions() {
+        return favouriteAttractions;
+    }
+
+    public void setFavouriteAttractions(List<AttractionDto> favouriteAttractions) {
+        this.favouriteAttractions = favouriteAttractions;
     }
 }
 

@@ -1,13 +1,21 @@
 package com.mountain.project.mapper;
 
 import com.mountain.project.entity.HotelEntity;
+import com.mountain.project.entity.UserEntity;
 import com.mountain.project.model.HotelDto;
+import com.mountain.project.model.UserDto;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Component;
 
 @Component
 public class HotelMapper {
+    private final UserMapper userMapper;
+
+    public HotelMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     public HotelDto convertHotelEntityToHotelDto(HotelEntity hotelEntity) {
         HotelDto hotelDto = new HotelDto();
@@ -19,6 +27,10 @@ public class HotelMapper {
         hotelDto.setPicture(hotelEntity.getPicture());
         hotelDto.setPremium(hotelEntity.isPremium());
         hotelDto.setMountain(hotelEntity.getMountain());
+
+        List<UserDto> favouredByUsers = userMapper.convertListUserEntityToListUserDto(hotelEntity.getFavouredByUsers());
+        hotelDto.setFavouredByUsers(favouredByUsers);
+
         return hotelDto;
     }
 
@@ -40,6 +52,10 @@ public class HotelMapper {
         hotelEntity.setPicture(hotelDto.getPicture());
         hotelEntity.setPremium(hotelDto.isPremium());
         hotelEntity.setMountain(hotelDto.getMountain());
+
+        List<UserEntity> favouredByUsers = userMapper.convertListUserDtoToListUserEntity(hotelDto.getFavouredByUsers());
+        hotelEntity.setFavouredByUsers(favouredByUsers);
+
         return hotelEntity;
     }
 

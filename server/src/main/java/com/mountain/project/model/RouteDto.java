@@ -2,6 +2,9 @@ package com.mountain.project.model;
 
 import com.mountain.project.enums.Mountain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RouteDto {
 
     private Long id;
@@ -11,6 +14,7 @@ public class RouteDto {
     private Float distance;
     private Float denivelation;
     private Mountain mountain;
+    private List<UserDto> favouredByUserIds = new ArrayList<>();
 
     public RouteDto() {
     }
@@ -78,6 +82,14 @@ public class RouteDto {
 
     public void setMountain(Mountain mountain) {
         this.mountain = mountain;
+    }
+
+    public List<UserDto> getFavouredByUsers() {
+        return favouredByUserIds;
+    }
+
+    public void setFavouredByUsers(List<UserDto> favouredByUserIds) {
+        this.favouredByUserIds = favouredByUserIds;
     }
 }
 

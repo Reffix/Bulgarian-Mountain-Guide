@@ -1,5 +1,8 @@
 package com.mountain.project.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mountain.project.enums.Mountain;
 
 public class CottageDto {
@@ -9,6 +12,7 @@ public class CottageDto {
     private String description;
     private Boolean premium;
     private Mountain mountain;
+    private List<UserDto> favouredByUserIds = new ArrayList<>();
 
     public CottageDto() {
     }
@@ -59,5 +63,13 @@ public class CottageDto {
 
     public void setMountain(Mountain mountain) {
         this.mountain = mountain;
+    }
+
+    public List<UserDto> getFavouredByUsers() {
+        return favouredByUserIds;
+    }
+
+    public void setFavouredByUsers(List<UserDto> favouredByUserIds) {
+        this.favouredByUserIds = favouredByUserIds;
     }
 }

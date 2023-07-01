@@ -45,7 +45,7 @@ public class CottageController {
         return ResponseEntity.status(HttpStatus.CREATED).body(cottage);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/cottage/{id}")
     public ResponseEntity<CottageDto> updateCottage(@PathVariable("id") Long id, @RequestBody CottageDto cottageDto) {
         CottageDto cottage = cottageService.updateCottage(id, cottageDto);
         if (cottage != null) {
@@ -54,7 +54,7 @@ public class CottageController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/cottage/{id}")
     public ResponseEntity<Void> deleteCottage(@PathVariable("id") Long id) {
         boolean deleted = cottageService.deleteCottage(id);
         if (deleted) {

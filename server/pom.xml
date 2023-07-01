@@ -91,6 +91,25 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-maven-plugin</artifactId>
+				<version>1.4</version> <!-- replace with the latest version -->
+				<executions>
+					<execution>
+						<id>generate</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
+							<outputFileName>endpoint_documentation.json</outputFileName>
+							<outputDir>E:\Domino\Bulgarian-Mountain-Guide</outputDir>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

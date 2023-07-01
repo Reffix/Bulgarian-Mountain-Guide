@@ -1,9 +1,11 @@
 package com.mountain.project.mapper;
 
-import com.mountain.project.entity.UserEntity;
-import com.mountain.project.model.UserDto;
+import com.mountain.project.entity.*;
+import com.mountain.project.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,9 +18,13 @@ public class UserMapper {
         userDto.setUsername(userEntity.getUsername());
         userDto.setPassword(userEntity.getPassword());
         userDto.setEmail(userEntity.getEmail());
-        userDto.setFavouriteHotels(userEntity.getFavouriteHotels());
-        userDto.setFavouriteCottages(userEntity.getFavouriteCottages());
-        userDto.setFavouriteRoutes(userEntity.getFavouriteRoutes());
+
+        //many to many relations will be handled in the service layer
+        userDto.setFavouriteHotels(null);
+        userDto.setFavouriteCottages(null);
+        userDto.setFavouriteRoutes(null);
+        userDto.setFavouriteAttractions(null);
+
         return userDto;
     }
 
@@ -36,10 +42,13 @@ public class UserMapper {
         userEntity.setUserRole(userDto.getUserRole());
         userEntity.setUsername(userDto.getUsername());
         userEntity.setPassword(userDto.getPassword());
-        userEntity.setEmail(userDto.getEmail());
-        userEntity.setFavouriteHotels(userDto.getFavouriteHotels());
-        userEntity.setFavouriteCottages(userDto.getFavouriteCottages());
-        userEntity.setFavouriteRoutes(userDto.getFavouriteRoutes());
+
+        //many to many relations will be handled in the service layer
+        userEntity.setFavouriteHotels(null);
+        userEntity.setFavouriteCottages(null);
+        userEntity.setFavouriteRoutes(null);
+        userEntity.setFavouriteAttractions(null);
+
         return userEntity;
     }
 

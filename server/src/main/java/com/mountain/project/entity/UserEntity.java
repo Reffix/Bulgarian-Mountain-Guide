@@ -1,5 +1,10 @@
 package com.mountain.project.entity;
 
+import javax.persistence.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mountain.project.enums.UserRole;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +15,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class UserEntity {
 
     @Id
@@ -28,14 +36,33 @@ public class UserEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "favourite_hotels")
-    private Integer favouriteHotels;
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorite_hotel",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "hotel_id"))
+    private List<HotelEntity> favouriteHotels;
 
-    @Column(name = "favourite_cottages")
-    private Integer favouriteCottages;
+    @ManyToMany
+    @JoinTable(
+            name = "user_favourite_cottage",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "cottage_id"))
+    private List<CottageEntity> favouriteCottages;
 
-    @Column(name = "favourite_routes")
-    private Integer favouriteRoutes;
+    @ManyToMany
+    @JoinTable(
+            name = "user_favourite_route",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "route_id"))
+    private List<RouteEntity> favouriteRoutes;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_favourite_attraction",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "attraction_id"))
+    private List<AttractionEntity> favouriteAttractions;
 
     public Long getId() {
         return id;
@@ -77,27 +104,35 @@ public class UserEntity {
         this.email = email;
     }
 
-    public Integer getFavouriteHotels() {
+    public List<HotelEntity> getFavouriteHotels() {
         return favouriteHotels;
     }
 
-    public void setFavouriteHotels(Integer favouriteHotels) {
+    public void setFavouriteHotels(List<HotelEntity> favouriteHotels) {
         this.favouriteHotels = favouriteHotels;
     }
 
-    public Integer getFavouriteCottages() {
+    public List<CottageEntity> getFavouriteCottages() {
         return favouriteCottages;
     }
 
-    public void setFavouriteCottages(Integer favouriteCottages) {
+    public void setFavouriteCottages(List<CottageEntity> favouriteCottages) {
         this.favouriteCottages = favouriteCottages;
     }
 
-    public Integer getFavouriteRoutes() {
+    public List<RouteEntity> getFavouriteRoutes() {
         return favouriteRoutes;
     }
 
-    public void setFavouriteRoutes(Integer favouriteRoutes) {
+    public void setFavouriteRoutes(List<RouteEntity> favouriteRoutes) {
         this.favouriteRoutes = favouriteRoutes;
+    }
+
+    public List<AttractionEntity> getFavouriteAttractions() {
+        return favouriteAttractions;
+    }
+
+    public void setFavouriteAttractions(List<AttractionEntity> favouriteAttractions) {
+        this.favouriteAttractions = favouriteAttractions;
     }
 }

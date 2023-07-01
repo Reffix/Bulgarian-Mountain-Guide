@@ -1,13 +1,21 @@
 package com.mountain.project.mapper;
 
 import com.mountain.project.entity.CottageEntity;
+import com.mountain.project.entity.UserEntity;
 import com.mountain.project.model.CottageDto;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mountain.project.model.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CottageMapper {
+    private final UserMapper userMapper;
+
+    public CottageMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     public CottageDto convertCottageEntityToCottageDto(CottageEntity cottageEntity) {
         CottageDto cottageDto = new CottageDto();
@@ -16,6 +24,10 @@ public class CottageMapper {
         cottageDto.setDescription(cottageEntity.getDescription());
         cottageDto.setPremium(cottageEntity.getPremium());
         cottageDto.setMountain(cottageEntity.getMountain());
+
+        List<UserDto> favouriteByUsers = userMapper.convertListUserEntityToListUserDto(cottageEntity.getFavouriteByUsers());
+        cottageDto.setFavouredByUsers(favouriteByUsers);
+
         return cottageDto;
     }
 
@@ -34,6 +46,10 @@ public class CottageMapper {
         cottageEntity.setDescription(cottageDto.getDescription());
         cottageEntity.setPremium(cottageDto.getPremium());
         cottageEntity.setMountain(cottageDto.getMountain());
+
+        List<UserEntity> favouriteByUsers = userMapper.convertListUserDtoToListUserEntity(cottageDto.getFavouredByUsers());
+        cottageEntity.setFavouriteByUsers(favouriteByUsers);
+
         return cottageEntity;
     }
 

@@ -47,7 +47,7 @@ public class AttractionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAttraction);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/attraction/{id}")
     public ResponseEntity<AttractionDto> updateAttraction(@PathVariable Long id, @RequestBody AttractionDto attractionDto) {
         AttractionDto updatedAttraction = attractionService.updateAttraction(id, attractionDto);
         if (updatedAttraction != null) {
@@ -56,7 +56,7 @@ public class AttractionController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/attraction/{id}")
     public ResponseEntity<Void> deleteAttraction(@PathVariable Long id) {
         attractionService.deleteAttraction(id);
         return ResponseEntity.noContent().build();

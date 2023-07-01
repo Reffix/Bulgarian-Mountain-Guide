@@ -1,5 +1,9 @@
 package com.mountain.project.entity;
 
+import javax.persistence.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.mountain.project.enums.Mountain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +43,10 @@ public class HotelEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "mountain")
     private Mountain mountain;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriteHotels")
+    @JsonIdentityReference(alwaysAsId = true)
+    private List<UserEntity> favouredByUsers;
 
     public Long getId() {
         return id;
@@ -102,5 +110,13 @@ public class HotelEntity {
 
     public void setMountain(Mountain mountain) {
         this.mountain = mountain;
+    }
+
+    public List<UserEntity> getFavouredByUsers() {
+        return favouredByUsers;
+    }
+
+    public void setFavouredByUsers(List<UserEntity> favouredByUsers) {
+        this.favouredByUsers = favouredByUsers;
     }
 }

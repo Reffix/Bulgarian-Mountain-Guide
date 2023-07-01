@@ -46,7 +46,7 @@ public class FaunaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFauna);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/fauna/{id}")
     public ResponseEntity<FaunaDto> updateFauna(@PathVariable Long id, @RequestBody FaunaDto faunaDto) {
         FaunaDto updatedFauna = faunaService.updateFauna(id, faunaDto);
         if (updatedFauna != null) {
@@ -55,7 +55,7 @@ public class FaunaController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/fauna/{id}")
     public ResponseEntity<Void> deleteFauna(@PathVariable Long id) {
         faunaService.deleteFauna(id);
         return ResponseEntity.noContent().build();

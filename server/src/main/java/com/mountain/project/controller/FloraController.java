@@ -46,7 +46,7 @@ public class FloraController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFlora);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/flora/{id}")
     public ResponseEntity<FloraDto> updateFlora(@PathVariable Long id, @RequestBody FloraDto floraDto) {
         FloraDto updatedFlora = floraService.updateFlora(id, floraDto);
         if (updatedFlora != null) {
@@ -55,7 +55,7 @@ public class FloraController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/flora/{id}")
     public ResponseEntity<Void> deleteFlora(@PathVariable Long id) {
         floraService.deleteFlora(id);
         return ResponseEntity.noContent().build();

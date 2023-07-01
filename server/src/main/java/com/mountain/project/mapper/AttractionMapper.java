@@ -1,13 +1,21 @@
 package com.mountain.project.mapper;
 
 import com.mountain.project.entity.AttractionEntity;
+import com.mountain.project.entity.UserEntity;
 import com.mountain.project.model.AttractionDto;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mountain.project.model.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AttractionMapper {
+    private final UserMapper userMapper;
+
+    public AttractionMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     public AttractionDto convertAttractionEntityToDto(AttractionEntity attractionEntity) {
         AttractionDto attractionDto = new AttractionDto();
@@ -18,6 +26,10 @@ public class AttractionMapper {
         attractionDto.setPremium(attractionEntity.isPremium());
         attractionDto.setPicture(attractionEntity.getPicture());
         attractionDto.setMountain(attractionEntity.getMountain());
+
+        List<UserDto> favouriteByUsers = userMapper.convertListUserEntityToListUserDto(attractionEntity.getFavouredByUsers());
+        attractionDto.setFavouredByUsers(favouriteByUsers);
+
         return attractionDto;
     }
 
@@ -36,6 +48,10 @@ public class AttractionMapper {
         attractionEntity.setDescription(attractionDto.getDescription());
         attractionEntity.setLocation(attractionDto.getLocation());
         attractionEntity.setPremium(attractionDto.isPremium());
+
+        List<UserEntity> favouriteByUsers = userMapper.convertListUserDtoToListUserEntity(attractionDto.getFavouredByUsers());
+        attractionEntity.setFavouredByUsers(favouriteByUsers);
+
         return attractionEntity;
     }
 

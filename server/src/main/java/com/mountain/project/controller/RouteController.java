@@ -45,7 +45,7 @@ public class RouteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRouteDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/route/{id}")
     public ResponseEntity<RouteDto> updateRoute(@PathVariable Long id, @RequestBody RouteDto routeDto) {
         RouteDto updatedRouteDto = routeService.updateRoute(id, routeDto);
         if (updatedRouteDto != null) {
@@ -54,7 +54,7 @@ public class RouteController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/route/{id}")
     public ResponseEntity<Void> deleteRoute(@PathVariable Long id) {
         boolean deleted = routeService.deleteRoute(id);
         if (deleted) {
