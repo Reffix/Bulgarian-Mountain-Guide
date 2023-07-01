@@ -78,21 +78,24 @@ public class UserService {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
 
-        userEntity.setAdmin(userDto.isAdmin());
+        userEntity.setUserRole(userDto.getUserRole());
         userEntity.setUsername(userDto.getUsername());
         userEntity.setPassword(userDto.getPassword());
         userEntity.setEmail(userDto.getEmail());
         handleFavouriteMembersFromDtoToEntity(userEntity, userDto);
-    public UserDto login(String username, String password) {
-        UserEntity userEntity = userRepository.findByUsernameAndPassword(username, password)
-                .orElseThrow(() -> new EntityNotFoundException("Invalid credentials"));
 
-        return userMapper.convertUserEntityToDto(userEntity);
         UserEntity updatedUserEntity = userRepository.save(userEntity);
         UserDto result = userMapper.convertUserEntityToDto(updatedUserEntity);
         handleFavouriteMembersFromEntityToDto(result,updatedUserEntity);
 
         return result;
+    }
+
+    public UserDto login(String username, String password) {
+        UserEntity userEntity = userRepository.findByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new EntityNotFoundException("Invalid credentials"));
+
+        return userMapper.convertUserEntityToDto(userEntity);
     }
 
     public UserDto register(String username, String password, String email) {
