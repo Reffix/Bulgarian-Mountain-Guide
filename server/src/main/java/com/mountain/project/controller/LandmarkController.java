@@ -45,7 +45,7 @@ public class LandmarkController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdLandmark);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/landmark/{id}")
     public ResponseEntity<LandmarkDto> updateLandmark(@PathVariable Long id, @RequestBody LandmarkDto landmarkDto) {
         LandmarkDto updatedLandmark = landmarkService.updateLandmark(id, landmarkDto);
         if (updatedLandmark != null) {
@@ -54,7 +54,7 @@ public class LandmarkController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/landmark/{id}")
     public ResponseEntity<Void> deleteLandmark(@PathVariable Long id) {
         landmarkService.deleteLandmark(id);
         return ResponseEntity.noContent().build();

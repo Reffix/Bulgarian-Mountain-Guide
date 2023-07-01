@@ -45,7 +45,7 @@ public class HotelController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdHotel);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/hotel/{id}")
     public ResponseEntity<HotelDto> updateHotel(@PathVariable Long id, @RequestBody HotelDto hotelDto) {
         HotelDto updatedHotel = hotelService.updateHotel(id, hotelDto);
         if (updatedHotel != null) {
@@ -54,7 +54,7 @@ public class HotelController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/hotel/{id}")
     public ResponseEntity<Void> deleteHotel(@PathVariable Long id) {
         hotelService.deleteHotel(id);
         return ResponseEntity.noContent().build();
