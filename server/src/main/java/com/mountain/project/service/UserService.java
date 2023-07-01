@@ -13,6 +13,8 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -109,12 +111,13 @@ public class UserService {
         return userMapper.convertUserEntityToDto(savedUserEntity);
     }
 
+    @Transactional
     public UserDto addFavouredEntityToUser(Long userId, Map<String, Object> entityInfo) {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
 
         try {
-            Long entityId = (Long) entityInfo.get("entity_id");
+            Long entityId = Long.valueOf(entityInfo.get("entity_id").toString());
             String entityType = (String) entityInfo.get("type");
 
             switch (entityType) {
@@ -131,6 +134,7 @@ public class UserService {
                 case "route" -> {
                     RouteEntity routeEntity = routeRepository.findById(entityId)
                             .orElseThrow(() -> new EntityNotFoundException("Route not found with ID: " + entityId));
+                    userEntity.getFavouriteRoutes().size();
                     userEntity.getFavouriteRoutes().add(routeEntity);
                 }
                 case "attraction" -> {
@@ -151,6 +155,42 @@ public class UserService {
         }
 
         return userMapper.convertUserEntityToDto(userEntity);
+    }
+
+    public List<HotelDto> getFavouredHotels(Long userId) {
+        List<HotelEntity> hotelEntities = userRepository.findAllFavouredHotelsByUserId(userId);
+        if (hotelEntities != null) {
+            return hotelMapper.convertListHotelEntityToListHotelDto(hotelEntities);
+        }
+
+        return new ArrayList<>();
+    }
+
+    public List<CottageDto> getFavouredCottages(Long userId) {
+        List<CottageEntity> cottageEntities = userRepository.findAllFavouredCottagesByUserId(userId);
+        if (cottageEntities != null) {
+            return cottageMapper.convertListCottageEntityToListCottageDto(cottageEntities);
+        }
+
+        return new ArrayList<>();
+    }
+
+    public List<RouteDto> getFavouredRoutes(Long userId) {
+        List<RouteEntity> routeEntities = userRepository.findFavouriteRoutesByUserId(userId);
+        if (routeEntities != null) {
+            return routeMapper.convertListRouteEntityToListRouteDto(routeEntities);
+        }
+
+        return new ArrayList<>();
+    }
+
+    public List<AttractionDto> getFavouredAttractions(Long userId) {
+        List<AttractionEntity> attractionEntities = userRepository.findAllFavouredAttractionsByUserId(userId);
+        if (attractionEntities != null) {
+            return attractionMapper.convertListEntityToDto(attractionEntities);
+        }
+
+        return new ArrayList<>();
     }
 
     public void handleFavouriteMembersFromDtoToEntity(UserEntity userEntity, UserDto userDto) {

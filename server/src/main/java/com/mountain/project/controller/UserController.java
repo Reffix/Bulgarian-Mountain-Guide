@@ -53,33 +53,25 @@ public class UserController {
 
     @GetMapping("/favourites/hotels/{id}")
     public ResponseEntity<List<HotelDto>> getFavouredHotelsByUser(@PathVariable("id") Long userId) {
-        UserDto user = userService.getUserById(userId);
-        List<HotelDto> favouriteHotels = user.getFavouriteHotels();
-
+        List<HotelDto> favouriteHotels = userService.getFavouredHotels(userId);
         return ResponseEntity.ok(favouriteHotels);
     }
 
     @GetMapping("/favourites/cottages/{id}")
     public ResponseEntity<List<CottageDto>> getFavouredCottagesByUser(@PathVariable("id") Long userId) {
-        UserDto user = userService.getUserById(userId);
-        List<CottageDto> favouriteCottages = user.getFavouriteCottages();
-
+        List<CottageDto> favouriteCottages = userService.getFavouredCottages(userId);
         return ResponseEntity.ok(favouriteCottages);
     }
 
     @GetMapping("/favourites/routes/{id}")
     public ResponseEntity<List<RouteDto>> getFavouredRoutesByUser(@PathVariable("id") Long userId) {
-        UserDto user = userService.getUserById(userId);
-        List<RouteDto> favouriteRoutes = user.getFavouriteRoutes();
-
+        List<RouteDto> favouriteRoutes = userService.getFavouredRoutes(userId);
         return ResponseEntity.ok(favouriteRoutes);
     }
 
     @GetMapping("/favourites/attraction/{id}")
     public ResponseEntity<List<AttractionDto>> getFavouredAttractionsByUser(@PathVariable("id") Long userId) {
-        UserDto user = userService.getUserById(userId);
-        List<AttractionDto> favouriteAttractions = user.getFavouriteAttractions();
-
+        List<AttractionDto> favouriteAttractions = userService.getFavouredAttractions(userId);
         return ResponseEntity.ok(favouriteAttractions);
     }
 
