@@ -14,9 +14,9 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,12 +32,13 @@ public class UserService {
     private final RouteRepository routeRepository;
     private final AttractionRepository attractionRepository;
 
-
     private final UserMapper userMapper;
     private final HotelMapper hotelMapper;
     private final CottageMapper cottageMapper;
     private final RouteMapper routeMapper;
     private final AttractionMapper attractionMapper;
+
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository,
                        HotelRepository hotelRepository,
@@ -48,7 +49,7 @@ public class UserService {
                        HotelMapper hotelMapper,
                        CottageMapper cottageMapper,
                        RouteMapper routeMapper,
-                       AttractionMapper attractionMapper) {
+                       AttractionMapper attractionMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.hotelRepository = hotelRepository;
         this.cottageRepository = cottageRepository;
@@ -59,6 +60,7 @@ public class UserService {
         this.cottageMapper = cottageMapper;
         this.routeMapper = routeMapper;
         this.attractionMapper = attractionMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDto getUserById(Long userId) {
@@ -78,17 +80,7 @@ public class UserService {
         return new org.springframework.security.core.userdetails.User(
                 userEntity.getUsername(),
                 userEntity.getPassword(),
-                new ArrayList<>());
-    }
-    public UserDto createUser(UserDto userDto) {
-        UserEntity userEntity = userMapper.convertUserDtoToEntity(userDto);
-        handleFavouriteMembersFromDtoToEntity(userEntity, userDto);
-
-        UserEntity savedUserEntity = userRepository.save(userEntity);
-        UserDto result = userMapper.convertUserEntityToDto(savedUserEntity);
-        handleFavouriteMembersFromEntityToDto(result,savedUserEntity);
-
-        return result;
+                authorities);
     }
 
     public UserDto updateUser(Long userId, UserDto userDto) {
@@ -119,8 +111,10 @@ public class UserService {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(username);
         userEntity.setEmail(email);
-        userEntity.setPassword(password);
         userEntity.setUserRole(UserRole.USER);
+
+        String hashedPassword = passwordEncoder.encode(password);
+        userEntity.setPassword(hashedPassword);
 
         UserEntity savedUserEntity = userRepository.save(userEntity);
         return userMapper.convertUserEntityToDto(savedUserEntity);

@@ -9,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import static org.springframework.http.HttpMethod.*;
 
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UnauthorizedRequestHandler unauthorizedRequestHandler;
@@ -30,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(POST, "/users/register/**", "/users/login/**").permitAll()
-                .antMatchers(GET, "/**").permitAll()
+                .antMatchers(GET, "/**").hasAnyRole(UserRole.ADMIN.toString(), UserRole.USER.toString())
                 .antMatchers(POST, "/**").hasRole(UserRole.ADMIN.toString())
                 .antMatchers(PUT, "/**").hasRole(UserRole.ADMIN.toString())
                 .antMatchers(DELETE, "/**").hasRole(UserRole.ADMIN.toString())

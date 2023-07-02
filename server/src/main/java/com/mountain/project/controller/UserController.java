@@ -28,7 +28,6 @@ public class UserController {
         this.authenticationManager = authenticationManager;
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId) {
         UserDto user = userService.getUserById(userId);
@@ -38,23 +37,14 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        UserDto createdUser = userService.createUser(userDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-    }
-
     @PostMapping("/login/{username}/{password}")
     public String login(@PathVariable("username") String username,
             @PathVariable("password") String password) {
-
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 username, password));
 
         UserDetails user = userService.getUserByUsername(username);
-        String token = jwtUtils.generateToken(user);
-
-        return token;
+        return jwtUtils.generateToken(user);
     }
 
     @PostMapping("/register/{username}/{password}/{email}")
