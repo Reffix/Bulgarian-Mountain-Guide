@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .antMatchers(POST, "/users/register/**", "/users/login/**").permitAll()
                 .antMatchers(GET, "/**").hasAnyRole(UserRole.ADMIN.toString(), UserRole.USER.toString())
                 .antMatchers(POST, "/**").hasRole(UserRole.ADMIN.toString())
