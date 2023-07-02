@@ -1,14 +1,14 @@
 package com.mountain.project.service;
 
-import com.mountain.project.entity.AttractionEntity;
 import com.mountain.project.entity.FaunaEntity;
 import com.mountain.project.mapper.FaunaMapper;
 import com.mountain.project.model.FaunaDto;
 import com.mountain.project.repository.FaunaRepository;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityNotFoundException;
-import org.springframework.stereotype.Service;
 
 @Service
 public class FaunaService {

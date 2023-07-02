@@ -1,23 +1,29 @@
 package com.mountain.project.service;
 
-import com.mountain.project.entity.HotelEntity;
 import com.mountain.project.entity.RouteEntity;
+import com.mountain.project.entity.UserEntity;
 import com.mountain.project.mapper.RouteMapper;
 import com.mountain.project.model.RouteDto;
 import com.mountain.project.repository.RouteRepository;
+import com.mountain.project.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Service;
 
 @Service
 public class RouteService {
 
     private final RouteRepository routeRepository;
     private final RouteMapper routeMapper;
+    private final UserRepository userRepository;
 
-    public RouteService(RouteRepository routeRepository, RouteMapper routeMapper) {
+    public RouteService(RouteRepository routeRepository, RouteMapper routeMapper, UserRepository userRepository) {
         this.routeRepository = routeRepository;
         this.routeMapper = routeMapper;
+        this.userRepository = userRepository;
     }
 
     public List<RouteDto> getAllRoutesForMountain(String mountain) {
@@ -54,12 +60,23 @@ public class RouteService {
         return null;
     }
 
-    public boolean deleteRoute(Long id) {
-        if (routeRepository.existsById(id)) {
-            routeRepository.deleteById(id);
-            return true;
+    @Transactional
+    public void deleteRoute(Long id) {
+        if (!routeRepository.existsById(id)) {
+            throw new EntityNotFoundException("Route not found with ID: " + id);
         }
-        return false;
+
+        RouteEntity routeEntity = routeRepository.getById(id);
+        List<UserEntity> userEntities = userRepository.findAllByFavouriteRoutesContains(routeEntity);
+
+        for(UserEntity user : userEntities) {
+            UserEntity userEntity = userRepository.getById(user.getId());
+            userEntity.getFavouriteRoutes().remove(routeEntity);
+            userRepository.save(userEntity);
+        }
+
+        routeRepository.deleteById(id);
+
     }
 }
 

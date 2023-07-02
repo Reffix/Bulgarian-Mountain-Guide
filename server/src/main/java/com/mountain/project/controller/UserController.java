@@ -3,8 +3,6 @@ package com.mountain.project.controller;
 import com.mountain.project.Utils.JwtUtils;
 import com.mountain.project.model.*;
 import com.mountain.project.service.UserService;
-import com.mountain.project.config.SecurityConfig.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,22 +35,25 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/login/{username}/{password}")
-    public String login(@PathVariable("username") String username,
-            @PathVariable("password") String password) {
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody RegistrationDto registrationDto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                username, password));
+                registrationDto.getUsername(), registrationDto.getPassword()));
 
-        UserDetails user = userService.getUserByUsername(username);
-        return jwtUtils.generateToken(user);
+        UserDetails user = userService.getUserByUsername(registrationDto.getUsername());
+        return ResponseEntity.ok(jwtUtils.generateToken(user));
     }
 
-    @PostMapping("/register/{username}/{password}/{email}")
-    public ResponseEntity<UserDto> register(@PathVariable("username") String username,
-            @PathVariable("password") String password,
-            @PathVariable("email") String email) {
-        UserDto registeredUser = userService.register(username, password, email);
-        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
+    @PostMapping("/register/")
+    public ResponseEntity<String> register(@RequestBody RegistrationDto registrationDto) {
+        UserDto registeredUser = userService.register(registrationDto);
+
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                registeredUser.getUsername(), registeredUser.getPassword()));
+
+        UserDetails user = userService.getUserByUsername(registeredUser.getUsername());
+
+        return ResponseEntity.ok(jwtUtils.generateToken(user));
     }
 
     @GetMapping("/favourites/hotels/{id}")

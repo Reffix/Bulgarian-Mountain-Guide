@@ -4,19 +4,13 @@ import com.mountain.project.entity.*;
 import com.mountain.project.mapper.*;
 import com.mountain.project.model.*;
 import com.mountain.project.repository.*;
-import com.mountain.project.entity.UserEntity;
-import com.mountain.project.enums.UserRole;
-import com.mountain.project.mapper.UserMapper;
-import com.mountain.project.model.UserDto;
-import com.mountain.project.repository.UserRepository;
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +43,8 @@ public class UserService {
                        HotelMapper hotelMapper,
                        CottageMapper cottageMapper,
                        RouteMapper routeMapper,
-                       AttractionMapper attractionMapper, PasswordEncoder passwordEncoder) {
+                       AttractionMapper attractionMapper,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.hotelRepository = hotelRepository;
         this.cottageRepository = cottageRepository;
@@ -107,13 +102,13 @@ public class UserService {
         return userMapper.convertUserEntityToDto(userEntity);
     }
 
-    public UserDto register(String username, String password, String email) {
+    public UserDto register(RegistrationDto registrationDto) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(username);
-        userEntity.setEmail(email);
-        userEntity.setUserRole(UserRole.USER);
+        userEntity.setUsername(registrationDto.getUsername());
+        userEntity.setEmail(registrationDto.getEmail());
+        userEntity.setUserRole(registrationDto.getUserRole());
 
-        String hashedPassword = passwordEncoder.encode(password);
+        String hashedPassword = passwordEncoder.encode(registrationDto.getPassword());
         userEntity.setPassword(hashedPassword);
 
         UserEntity savedUserEntity = userRepository.save(userEntity);

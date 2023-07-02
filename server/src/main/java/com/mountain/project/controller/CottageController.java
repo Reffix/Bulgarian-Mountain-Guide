@@ -2,17 +2,11 @@ package com.mountain.project.controller;
 
 import com.mountain.project.model.CottageDto;
 import com.mountain.project.service.CottageService;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cottages")
@@ -56,10 +50,7 @@ public class CottageController {
 
     @DeleteMapping("/cottage/{id}")
     public ResponseEntity<Void> deleteCottage(@PathVariable("id") Long id) {
-        boolean deleted = cottageService.deleteCottage(id);
-        if (deleted) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+       cottageService.deleteCottage(id);
+       return ResponseEntity.noContent().build();
     }
 }

@@ -1,7 +1,6 @@
 package com.mountain.project.security;
 
 import com.mountain.project.Utils.JwtUtils;
-import com.mountain.project.entity.UserEntity;
 import com.mountain.project.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;

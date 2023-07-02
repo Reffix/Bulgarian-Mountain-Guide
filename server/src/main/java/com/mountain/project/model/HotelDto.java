@@ -1,9 +1,9 @@
 package com.mountain.project.model;
 
+import com.mountain.project.enums.Mountain;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mountain.project.enums.Mountain;
 
 public class HotelDto {
     private Long id;

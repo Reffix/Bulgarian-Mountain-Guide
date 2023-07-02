@@ -2,9 +2,10 @@ package com.mountain.project.mapper;
 
 import com.mountain.project.entity.FloraEntity;
 import com.mountain.project.model.FloraDto;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Component;
 
 @Component
 public class FloraMapper {

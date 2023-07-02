@@ -2,9 +2,10 @@ package com.mountain.project.mapper;
 
 import com.mountain.project.entity.LandmarkEntity;
 import com.mountain.project.model.LandmarkDto;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Component;
 
 @Component
 public class LandmarkMapper {

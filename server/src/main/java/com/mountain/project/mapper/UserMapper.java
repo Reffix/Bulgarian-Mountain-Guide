@@ -1,12 +1,11 @@
 package com.mountain.project.mapper;
 
-import com.mountain.project.entity.*;
-import com.mountain.project.model.*;
+import com.mountain.project.entity.UserEntity;
+import com.mountain.project.model.UserDto;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
