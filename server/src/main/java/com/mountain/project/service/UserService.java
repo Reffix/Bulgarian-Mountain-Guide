@@ -10,11 +10,16 @@ import com.mountain.project.mapper.UserMapper;
 import com.mountain.project.model.UserDto;
 import com.mountain.project.repository.UserRepository;
 import javax.persistence.EntityNotFoundException;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +69,17 @@ public class UserService {
 
         return userMapper.convertUserEntityToDto(userEntity);
     }
+    public UserDetails getUserByUsername(String username) {
+        UserEntity userEntity = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with username: " + username));
 
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + userEntity.getUserRole().toString()));
+
+        return new org.springframework.security.core.userdetails.User(
+                userEntity.getUsername(),
+                userEntity.getPassword(),
+                new ArrayList<>());
+    }
     public UserDto createUser(UserDto userDto) {
         UserEntity userEntity = userMapper.convertUserDtoToEntity(userDto);
         handleFavouriteMembersFromDtoToEntity(userEntity, userDto);

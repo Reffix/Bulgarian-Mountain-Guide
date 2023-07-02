@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUsernameAndPassword(String username, String password);
 
+    Optional<UserEntity> findByUsername(String username);
+
     @Query("SELECT hotel FROM UserEntity user JOIN user.favouriteHotels hotel WHERE user.id = :userId")
     List<HotelEntity> findAllFavouredHotelsByUserId(@Param("userId") Long userId);
 

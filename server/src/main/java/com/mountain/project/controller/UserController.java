@@ -1,10 +1,14 @@
 package com.mountain.project.controller;
 
-import com.mountain.project.enums.Mountain;
+import com.mountain.project.Utils.JwtUtils;
 import com.mountain.project.model.*;
 import com.mountain.project.service.UserService;
+import com.mountain.project.config.SecurityConfig.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +19,13 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final JwtUtils jwtUtils;
+    private final AuthenticationManager authenticationManager;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtUtils jwtUtils, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.jwtUtils = jwtUtils;
+        this.authenticationManager = authenticationManager;
     }
 
 
@@ -37,10 +45,16 @@ public class UserController {
     }
 
     @PostMapping("/login/{username}/{password}")
-    public ResponseEntity<UserDto> login(@PathVariable("username") String username,
+    public String login(@PathVariable("username") String username,
             @PathVariable("password") String password) {
-        UserDto loggedInUser = userService.login(username, password);
-        return ResponseEntity.ok(loggedInUser);
+
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                username, password));
+
+        UserDetails user = userService.getUserByUsername(username);
+        String token = jwtUtils.generateToken(user);
+
+        return token;
     }
 
     @PostMapping("/register/{username}/{password}/{email}")
