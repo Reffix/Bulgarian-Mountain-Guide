@@ -27,13 +27,14 @@ const registerStyles = makeStyles((theme) => ({
     marginTop: '25px',
   },
   page: {
-    marginTop: '50px',
+    marginTop: '30px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
   form: {
+    marginTop: '-0.5rem',
     display: 'flex',
   },
   text: {
@@ -49,7 +50,7 @@ const registerStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('lg')]: {
       fontSize: '28px',
     },
-    marginTop: theme.spacing(2),
+    marginTop: '10px',
     textAlign: 'center',
     letterSpacing: '0px',
     opacity: '1',
@@ -69,7 +70,7 @@ const registerStyles = makeStyles((theme) => ({
       width: '40rem',
     },
     backgroundColor: '#FFFFFF',
-    marginBottom: '8px',
+    marginBottom: '5px',
   },
   becomeText: {
     [theme.breakpoints.up('xs')]: {
