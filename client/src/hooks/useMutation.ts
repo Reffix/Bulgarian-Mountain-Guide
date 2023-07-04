@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import HttpError from '../errors/http-error';
 
 export default function useMutation<T>(action: () => Promise<T>) {
@@ -38,12 +39,15 @@ export default function useMutation<T>(action: () => Promise<T>) {
         throw err;
       }
 
-      setError('Something happened, we\'re working on it');
+      setError("Something happened, we're working on it");
       throw err;
     }
   }
 
   return {
-    loading, error, submit, unsetError,
+    loading,
+    error,
+    submit,
+    unsetError,
   };
 }
