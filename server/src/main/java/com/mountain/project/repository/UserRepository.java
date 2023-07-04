@@ -1,17 +1,24 @@
 package com.mountain.project.repository;
 
 import com.mountain.project.entity.*;
-
-import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUsernameAndPassword(String username, String password);
+
+    Optional<UserEntity> findByUsername(String username);
+
+    List<UserEntity> findAllByFavouriteHotelsContains(HotelEntity hotel);
+    List<UserEntity> findAllByFavouriteCottagesContains(CottageEntity cottage);
+    List<UserEntity> findAllByFavouriteRoutesContains(RouteEntity route);
+    List<UserEntity> findAllByFavouriteAttractionsContains(AttractionEntity attraction);
 
     @Query("SELECT hotel FROM UserEntity user JOIN user.favouriteHotels hotel WHERE user.id = :userId")
     List<HotelEntity> findAllFavouredHotelsByUserId(@Param("userId") Long userId);

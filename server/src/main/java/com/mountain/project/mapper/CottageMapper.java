@@ -3,11 +3,11 @@ package com.mountain.project.mapper;
 import com.mountain.project.entity.CottageEntity;
 import com.mountain.project.entity.UserEntity;
 import com.mountain.project.model.CottageDto;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mountain.project.model.UserDto;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CottageMapper {

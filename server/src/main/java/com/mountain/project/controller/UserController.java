@@ -1,10 +1,12 @@
 package com.mountain.project.controller;
 
-import com.mountain.project.enums.Mountain;
+import com.mountain.project.Utils.JwtUtils;
 import com.mountain.project.model.*;
 import com.mountain.project.service.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +17,14 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final JwtUtils jwtUtils;
+    private final AuthenticationManager authenticationManager;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtUtils jwtUtils, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.jwtUtils = jwtUtils;
+        this.authenticationManager = authenticationManager;
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId) {
@@ -30,25 +35,25 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        UserDto createdUser = userService.createUser(userDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody RegistrationDto registrationDto) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                registrationDto.getUsername(), registrationDto.getPassword()));
+
+        UserDetails user = userService.getUserByUsername(registrationDto.getUsername());
+        return ResponseEntity.ok(jwtUtils.generateToken(user));
     }
 
-    @PostMapping("/login/{username}/{password}")
-    public ResponseEntity<UserDto> login(@PathVariable("username") String username,
-            @PathVariable("password") String password) {
-        UserDto loggedInUser = userService.login(username, password);
-        return ResponseEntity.ok(loggedInUser);
-    }
+    @PostMapping("/register/")
+    public ResponseEntity<String> register(@RequestBody RegistrationDto registrationDto) {
+        UserDto registeredUser = userService.register(registrationDto);
 
-    @PostMapping("/register/{username}/{password}/{email}")
-    public ResponseEntity<UserDto> register(@PathVariable("username") String username,
-            @PathVariable("password") String password,
-            @PathVariable("email") String email) {
-        UserDto registeredUser = userService.register(username, password, email);
-        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                registeredUser.getUsername(), registeredUser.getPassword()));
+
+        UserDetails user = userService.getUserByUsername(registeredUser.getUsername());
+
+        return ResponseEntity.ok(jwtUtils.generateToken(user));
     }
 
     @GetMapping("/favourites/hotels/{id}")

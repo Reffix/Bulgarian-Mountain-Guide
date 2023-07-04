@@ -1,14 +1,14 @@
 package com.mountain.project.service;
 
-import com.mountain.project.entity.HotelEntity;
 import com.mountain.project.entity.LandmarkEntity;
 import com.mountain.project.mapper.LandmarkMapper;
 import com.mountain.project.model.LandmarkDto;
 import com.mountain.project.repository.LandmarkRepository;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityNotFoundException;
-import org.springframework.stereotype.Service;
 
 @Service
 public class LandmarkService {
