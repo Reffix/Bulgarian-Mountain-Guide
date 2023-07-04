@@ -27,9 +27,10 @@ public class FaunaController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{mountain}")
-    public ResponseEntity<List<FaunaDto>> getAllFaunasForMountain(@PathVariable String mountain) {
-        List<FaunaDto> faunas = faunaService.getAllFaunasForMountain(mountain);
+    @GetMapping("/{mountain/{page}/{size}}")
+    public ResponseEntity<List<FaunaDto>> getAllFaunasForMountain(@PathVariable String mountain, @PathVariable int page,
+            @PathVariable int size) {
+        List<FaunaDto> faunas = faunaService.getAllFaunasForMountain(mountain, page, size);
         return ResponseEntity.ok(faunas);
     }
 

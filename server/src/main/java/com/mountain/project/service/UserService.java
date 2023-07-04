@@ -102,7 +102,7 @@ public class UserService {
         return userMapper.convertUserEntityToDto(userEntity);
     }
 
-    public UserDto register(RegistrationDto registrationDto) {
+    public void register(RegistrationDto registrationDto) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registrationDto.getUsername());
         userEntity.setEmail(registrationDto.getEmail());
@@ -112,7 +112,6 @@ public class UserService {
         userEntity.setPassword(hashedPassword);
 
         UserEntity savedUserEntity = userRepository.save(userEntity);
-        return userMapper.convertUserEntityToDto(savedUserEntity);
     }
 
     @Transactional

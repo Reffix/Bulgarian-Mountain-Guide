@@ -27,9 +27,10 @@ public class LandmarkController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{mountain}")
-    public ResponseEntity<List<LandmarkDto>> getAllLandmarksForMountain(@PathVariable String mountain) {
-        List<LandmarkDto> landmarkDtos = landmarkService.getAllLandmarksForMountain(mountain);
+    @GetMapping("/{mountain}/{page}/{size}")
+    public ResponseEntity<List<LandmarkDto>> getAllLandmarksForMountain(@PathVariable String mountain, @PathVariable int page,
+            @PathVariable int size) {
+        List<LandmarkDto> landmarkDtos = landmarkService.getAllLandmarksForMountain(mountain, page, size);
         return ResponseEntity.ok(landmarkDtos);
     }
 

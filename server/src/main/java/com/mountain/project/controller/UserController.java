@@ -45,15 +45,9 @@ public class UserController {
     }
 
     @PostMapping("/register/")
-    public ResponseEntity<String> register(@RequestBody RegistrationDto registrationDto) {
-        UserDto registeredUser = userService.register(registrationDto);
-
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                registeredUser.getUsername(), registeredUser.getPassword()));
-
-        UserDetails user = userService.getUserByUsername(registeredUser.getUsername());
-
-        return ResponseEntity.ok(jwtUtils.generateToken(user));
+    public ResponseEntity<Void> register(@RequestBody RegistrationDto registrationDto) {
+        userService.register(registrationDto);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/favourites/hotels/{id}")

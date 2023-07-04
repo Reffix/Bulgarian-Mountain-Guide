@@ -18,9 +18,10 @@ public class RouteController {
         this.routeService = routeService;
     }
 
-    @GetMapping("/{mountain}")
-    public ResponseEntity<List<RouteDto>> getAllRoutesForMountain(@PathVariable String mountain) {
-        List<RouteDto> allRoutesForMountain = routeService.getAllRoutesForMountain(mountain);
+    @GetMapping("/{mountain}/{page}/{size}")
+    public ResponseEntity<List<RouteDto>> getAllRoutesForMountain(@PathVariable String mountain, @PathVariable int page,
+            @PathVariable int size) {
+        List<RouteDto> allRoutesForMountain = routeService.getAllRoutesForMountain(mountain, page, size);
         return ResponseEntity.ok(allRoutesForMountain);
     }
 

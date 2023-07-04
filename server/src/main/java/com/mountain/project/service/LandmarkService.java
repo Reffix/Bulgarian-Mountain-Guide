@@ -1,14 +1,16 @@
 package com.mountain.project.service;
 
 import com.mountain.project.entity.LandmarkEntity;
+import com.mountain.project.enums.Mountain;
 import com.mountain.project.mapper.LandmarkMapper;
 import com.mountain.project.model.LandmarkDto;
 import com.mountain.project.repository.LandmarkRepository;
-import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class LandmarkService {
@@ -29,10 +31,11 @@ public class LandmarkService {
         return landmarkMapper.convertLandmarkEntityToLandmarkDto(landmarkEntity.get());
     }
 
-    public List<LandmarkDto> getAllLandmarksForMountain(String mountain) {
-        List<LandmarkEntity> landmarkEntities = landmarkRepository.findAll().stream()
-                .filter(landmarkEntity -> landmarkEntity.getMountain().name().equals(mountain.toUpperCase()))
-                .toList();
+    public List<LandmarkDto> getAllLandmarksForMountain(String mountain, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<LandmarkEntity> landmarkEntities = landmarkRepository.findAllByMountain(
+                Mountain.valueOf(mountain.toUpperCase()),
+                pageable);
         return landmarkMapper.convertListLandmarkEntityToListLandmarkDto(landmarkEntities);
     }
 

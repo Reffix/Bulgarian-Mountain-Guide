@@ -1,14 +1,16 @@
 package com.mountain.project.service;
 
 import com.mountain.project.entity.FaunaEntity;
+import com.mountain.project.enums.Mountain;
 import com.mountain.project.mapper.FaunaMapper;
 import com.mountain.project.model.FaunaDto;
 import com.mountain.project.repository.FaunaRepository;
-import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class FaunaService {
@@ -29,10 +31,10 @@ public class FaunaService {
         return faunaMapper.convertFaunaEntityToFaunaDto(faunaEntity.get());
     }
 
-    public List<FaunaDto> getAllFaunasForMountain(String mountain) {
-        List<FaunaEntity> faunaEntities = faunaRepository.findAll().stream()
-                .filter(faunaEntity -> faunaEntity.getMountain().name().equals(mountain.toUpperCase()))
-                .toList();
+    public List<FaunaDto> getAllFaunasForMountain(String mountain, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<FaunaEntity> faunaEntities = faunaRepository.findAllByMountain(Mountain.valueOf(mountain.toUpperCase()),
+                pageable);
         return faunaMapper.convertListFaunaEntityToListFaunaDto(faunaEntities);
     }
 

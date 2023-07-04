@@ -1,10 +1,14 @@
 package com.mountain.project.service;
 
+import com.mountain.project.entity.FaunaEntity;
 import com.mountain.project.entity.FloraEntity;
+import com.mountain.project.enums.Mountain;
 import com.mountain.project.mapper.FloraMapper;
 import com.mountain.project.model.FloraDto;
 import com.mountain.project.repository.FloraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -30,10 +34,10 @@ public class FloraService {
         return floraMapper.convertFloraEntityToFloraDto(floraEntity.get());
     }
 
-    public List<FloraDto> getAllFlorasForMountain(String mountain) {
-        List<FloraEntity> floras = floraRepository.findAll().stream()
-                .filter(floraEntity -> floraEntity.getMountain().name().equals(mountain.toUpperCase()))
-                .toList();
+    public List<FloraDto> getAllFlorasForMountain(String mountain, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<FloraEntity> floras = floraRepository.findAllByMountain(Mountain.valueOf(mountain.toUpperCase()),
+                pageable);
         return floraMapper.convertListFloraEntityToListFloraDto(floras);
     }
 

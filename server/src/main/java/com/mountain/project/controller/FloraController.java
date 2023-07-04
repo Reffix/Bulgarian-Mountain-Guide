@@ -28,9 +28,10 @@ public class FloraController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{mountain}")
-    public ResponseEntity<List<FloraDto>> getAllFlorasForMountain(String mountain) {
-        List<FloraDto> floraDtos = floraService.getAllFlorasForMountain(mountain);
+    @GetMapping("/{mountain}/{page}/{size}")
+    public ResponseEntity<List<FloraDto>> getAllFlorasForMountain(String mountain, @PathVariable int page,
+            @PathVariable int size) {
+        List<FloraDto> floraDtos = floraService.getAllFlorasForMountain(mountain, page, size);
         return ResponseEntity.ok(floraDtos);
     }
 

@@ -2,16 +2,18 @@ package com.mountain.project.service;
 
 import com.mountain.project.entity.RouteEntity;
 import com.mountain.project.entity.UserEntity;
+import com.mountain.project.enums.Mountain;
 import com.mountain.project.mapper.RouteMapper;
 import com.mountain.project.model.RouteDto;
 import com.mountain.project.repository.RouteRepository;
 import com.mountain.project.repository.UserRepository;
-import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class RouteService {
@@ -26,10 +28,10 @@ public class RouteService {
         this.userRepository = userRepository;
     }
 
-    public List<RouteDto> getAllRoutesForMountain(String mountain) {
-        List<RouteEntity> routeEntities = routeRepository.findAll().stream()
-                .filter(routeEntity -> routeEntity.getMountain().name().equals(mountain.toUpperCase()))
-                .toList();
+    public List<RouteDto> getAllRoutesForMountain(String mountain, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<RouteEntity> routeEntities = routeRepository.findAllByMountain(Mountain.valueOf(mountain.toUpperCase()),
+                pageable);
         return routeMapper.convertListRouteEntityToListRouteDto(routeEntities);
     }
 
@@ -69,7 +71,7 @@ public class RouteService {
         RouteEntity routeEntity = routeRepository.getById(id);
         List<UserEntity> userEntities = userRepository.findAllByFavouriteRoutesContains(routeEntity);
 
-        for(UserEntity user : userEntities) {
+        for (UserEntity user : userEntities) {
             UserEntity userEntity = userRepository.getById(user.getId());
             userEntity.getFavouriteRoutes().remove(routeEntity);
             userRepository.save(userEntity);
