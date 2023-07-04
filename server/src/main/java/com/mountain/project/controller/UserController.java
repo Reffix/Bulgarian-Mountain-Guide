@@ -1,6 +1,7 @@
 package com.mountain.project.controller;
 
 import com.mountain.project.Utils.JwtUtils;
+import com.mountain.project.entity.UserEntity;
 import com.mountain.project.model.*;
 import com.mountain.project.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class UserController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 registrationDto.getUsername(), registrationDto.getPassword()));
 
-        UserDetails user = userService.getUserByUsername(registrationDto.getUsername());
+        UserEntity user = userService.getUserByUsername(registrationDto.getUsername());
         return ResponseEntity.ok(jwtUtils.generateToken(user));
     }
 

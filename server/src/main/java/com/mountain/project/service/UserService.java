@@ -66,16 +66,10 @@ public class UserService {
 
         return userMapper.convertUserEntityToDto(userEntity);
     }
-    public UserDetails getUserByUsername(String username) {
-        UserEntity userEntity = userRepository.findByUsername(username)
+
+    public UserEntity getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with username: " + username));
-
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + userEntity.getUserRole().toString()));
-
-        return new org.springframework.security.core.userdetails.User(
-                userEntity.getUsername(),
-                userEntity.getPassword(),
-                authorities);
     }
 
     public UserDto updateUser(Long userId, UserDto userDto) {
