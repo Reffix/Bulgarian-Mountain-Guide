@@ -26,14 +26,12 @@ export default function ListPage({mountain, entity}) {
   useEffect(() => {
     const fetchCardInfo = async () => {
       try {
-        const path = `${entity}/${mountain}/${currentPage}/10`;
+        const path = `${entity}/${mountain}/${currentPage - 1}/10`;
         const response = await apiService.get<CardInfo[]>(
           path
         );
         console.log(response);
         setCardList(response.data);
-        if(mountain === 'Rila')
-          setCardList([{title: 'Каравана', description: 'албала', image: 'istockphoto-104731717-612x612.jpg', id: 1}]);
         setTotalPages(cardList.length / 10);
         console.log(cardList);
       } catch (error) {
