@@ -6,7 +6,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Mountains } from '../enums/mountains';
 import { useState } from 'react';
 import { DisplayableEntites } from '../enums/displayable-entities';
-import { Button, FormGroup, TextField } from '@material-ui/core';
+import { Button, CircularProgress, Container, FormGroup, TextField } from '@material-ui/core';
 import useMutation from '../hooks/useMutation';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginStyles from '../styles/login-styles';
@@ -16,6 +16,22 @@ import apiService from '../services/api-service';
 
 export default function AddEntity() {
 
+  function getKeyByValueEntity(value: string) {
+    const indexOfS = Object.values(DisplayableEntites).indexOf(value as unknown as DisplayableEntites);
+  
+    const key = Object.keys(DisplayableEntites)[indexOfS];
+  
+    return key;
+  }
+
+  function getKeyByValueMountain(value: string) {
+    const indexOfS = Object.values(Mountains).indexOf(value as unknown as Mountains);
+  
+    const key = Object.keys(Mountains)[indexOfS];
+  
+    return key;
+  }
+
     const classes = loginStyles();
 
     const history = useNavigate();
@@ -24,10 +40,10 @@ export default function AddEntity() {
         error,
         loading,
         submit: submitAdd,
-      } = useMutation(async () => await apiService.post(`/${DisplayableEntites[entityType]}`, {
+      } = useMutation(async () => await apiService.post(`${getKeyByValueEntity(entityType).toString()}`, {
         name: name,
         description: description,
-        mountain: Mountains[mountain],
+        mountain: getKeyByValueMountain(mountain).toString().toUpperCase(),
       }));
     
       async function submit(event: React.FormEvent) {
@@ -38,7 +54,12 @@ export default function AddEntity() {
         history('/');
       }
 
-
+  const handleSetMountain = event => {
+    setMountain(event.target.value as string);
+  }
+  const handleSetEntity = event => {
+    setEntityType(event.target.value as string);
+  }
 
   const [entityType, setEntityType] = useState('');
   const [name, setName] = useState('');
@@ -49,15 +70,15 @@ export default function AddEntity() {
   const mountains = Object.values(Mountains);
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: 80 }}>
+    <Container maxWidth="sm" className={classes.page}>
+    <form onSubmit={submit}>
       <FormGroup>
         <TextField
         label="Име на тип"
         variant="filled"
-        type="email"
+        type="string"
         value={name}
-        onChange={(event) => setName(event.target.value)}
+        onChange={(event) => setName(event.target.value as string)}
         size="medium"
         InputProps={{
           className: classes.multilineColor,
@@ -75,7 +96,7 @@ export default function AddEntity() {
           labelId="demo-simple-select-autowidth-label1"
           id="demo-simple-select-autowidth1"
           value={entityType}
-          onChange={(event) => setEntityType(event.target.value)}
+          onChange={handleSetEntity}
           autoWidth
           label=""
         >
@@ -94,7 +115,7 @@ export default function AddEntity() {
         multiline
         maxRows={25}
         value={description}
-        onChange={(event) => setDescription(event.target.value)}
+        onChange={(event) => setDescription(event.target.value as string)}
         size="medium"
         InputProps={{
           className: classes.multilineColor,
@@ -111,7 +132,7 @@ export default function AddEntity() {
           labelId="demo-simple-select-autowidth-label2"
           id="demo-simple-select-autowidth2"
           value={mountain}
-          onChange={(event) => setMountain(event.target.value)}
+          onChange={handleSetMountain}
           autoWidth
           label=""
         >
@@ -122,8 +143,16 @@ export default function AddEntity() {
           ))}
         </Select>
         </FormGroup>
-      </FormControl>
-      <Button onClick= {submit}> Submit</Button>
-    </div>
-  );
+        <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            disabled={loading}
+            className={classes.login}
+          >
+            {loading ? <CircularProgress color="inherit" /> : <>Submit</>}
+          </Button>
+      </form>
+      </Container>
+    );
 }

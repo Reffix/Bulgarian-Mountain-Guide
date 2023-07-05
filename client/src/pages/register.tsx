@@ -34,11 +34,11 @@ export default function SignUp() {
     //const hashedPassword = sha256(password).toString();
     
     console.log({
-      userRole : 'ADMIN',
+      userRole : 'USER',
       username: username,
       password: password,
       email: email,});
-    authService.register(username,email,password,"ADMIN");
+    authService.register(username,email,password,"USER");
   });
 
   async function submitForm(event: FormEvent) {

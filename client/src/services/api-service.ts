@@ -10,13 +10,14 @@ class ApiService {
     this.baseUrl = baseUrl;
   }
 
-  async get<T>(path: string) {
+  async get<T>(path: string, body?:  { [key: string]: any }) {
     const user = authService.storedUser;
     return axios.get<T>(`${this.baseUrl}/${path}`, {
       method: `GET`,
       headers: {
         Authorization: user ? `Bearer ${user.accessToken}` : null,
       },
+      data: JSON.stringify(body),
     });
   }
 
@@ -47,14 +48,16 @@ class ApiService {
     })
   }
 
-  async delete<T>(path: string) {
+  async delete<T>(path: string, body?:  { [key: string]: any }) {
     const user = authService.storedUser;
-    return axios.delete<T>(`${this.baseUrl}/${path}`, {
+    return axios({
+      url:`${this.baseUrl}/${path}`, 
       method: `DELETE`,
       headers: {
         Authorization: user ? `Bearer ${user.accessToken}` : null,
       },
-    });
+      data: JSON.stringify(body), 
+  });
   }
 }
 

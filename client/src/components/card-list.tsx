@@ -13,16 +13,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardListComponent(params: { cardList: CardInfo[] }) {
+interface CardListCompProps {
+  cardList:CardInfo[];
+  mountain: string;
+  entity:string;
+}
+
+export default function CardListComponent(props: CardListCompProps) {
   const classes = useStyles();
 
-  const user = useCurrentUser();
-  let cardsList = params.cardList;
-
+  let cardsList = props.cardList;
+  const entity = props.entity;
   return (
     <div className={classes.cardList}>
-      {cardsList.map((card) => (
-        <CardComponent cardInfo={card}></CardComponent>
+      {cardsList && cardsList.map((card) => (
+        <CardComponent cardInfo={card} entity={entity}></CardComponent>
       ))}
     </div>
   );

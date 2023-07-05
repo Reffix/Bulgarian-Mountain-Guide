@@ -42,6 +42,7 @@ export default function AppHeader() {
 
   function logout() {
     setAnchorEl(null);
+    navigate('/');
     authService.logout();
   }
 
@@ -92,7 +93,7 @@ export default function AppHeader() {
         {user && (
           <>
             <Box>
-              <Typography component="span">Hello, {user.username}!</Typography>
+              <Typography component="span"  className={classes.menuText}>Hello, {user.username}!</Typography>
               <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
                 <Avatar>{user.username[0].toUpperCase()}</Avatar>
               </IconButton>
@@ -111,7 +112,7 @@ export default function AppHeader() {
               open={!!anchorEl}
               onClose={() => setAnchorEl(null)}
             >
-              <MenuItem onClick={addEntity}>Add Entity</MenuItem>
+              {user.role === 'ADMIN' &&<MenuItem onClick={addEntity}>Add Entity</MenuItem>}
               <MenuItem onClick={showUserProfile}>User Profile</MenuItem>
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>

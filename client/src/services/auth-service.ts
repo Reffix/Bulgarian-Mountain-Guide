@@ -70,10 +70,10 @@ class AuthService {
 
   async register(username: string, email: string, password: string, role: string) {
     return apiService.post('users/register/', {
-      role,
-      username,
-      password,
-      email,
+      userRole: role,
+      username: username,
+      password: password,
+      email: email,
     });
   }
 }

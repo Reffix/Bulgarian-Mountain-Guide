@@ -12,15 +12,15 @@ import useCurrentUser from '../context/auth-context';
 import apiService from '../services/api-service';
 import { useLocation } from 'react-router-dom';
 import { DisplayableEntites } from '../enums/displayable-entities';
+import axios, { AxiosHeaders } from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: 'none !important',
-    width: '60%',
-    height: '10%',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     marginTop: '1em',
+    color: "#E7FEF7",
   },
   cardContent: {
     overflow: 'hidden',
@@ -38,28 +38,44 @@ export interface CardInfo {
   id: number;
 }
 
-export default function CardComponent(params: { cardInfo: CardInfo }) {
+interface CardComponentProps {
+  cardInfo: CardInfo;
+  entity: string;
+}
+
+export default function CardComponent(props:CardComponentProps) {
   const classes = useStyles();
-  const cardInfo = params.cardInfo;
+  const cardInfo = props.cardInfo;
   const user = useCurrentUser();
 
   const { state } = useLocation();
-  const mountainst = state.mountain;
-  const entity: String = Object.entries(DisplayableEntites)[state.entity][1].toString();
 
-  const handleAddFavorite = async (cardInfo) => {
-    await apiService.post(`/users/add-favourites/${user.id}`, {
+  const handleAddFavorite = async () => {
+    console.log(JSON.stringify(
+      {
         entity_id: cardInfo.id,
-        type: entity
-    })
+        type: props.entity.slice(0, props.entity.length - 1),
+      }));
+    await axios({url: `http://localhost:8080/users/add-favourites/${user.id}`,
+    method: 'PUT', 
+    data : JSON.stringify(
+    {
+      entity_id: cardInfo.id,
+      type: props.entity.slice(0, props.entity.length - 1),
+    }),
+    headers : { 'Content-Type': 'application/json' ,
+      Authorization: user ? `Bearer ${user.accessToken}` : null,
+    }
+  });
+    
   } 
 
   return (
-    <Card sx={{ maxWidth: 345 }} className={classes.card}>
+    <Card className={classes.card}>
       <CardMedia
         component="img"
         height="194"
-        src={new URL(cardInfo.image, import.meta.url).href}
+        src={new URL(`../resources/${cardInfo.image}`, import.meta.url).href}
         alt="hotel vitosha"
       />
       <CardActionArea>
@@ -73,12 +89,12 @@ export default function CardComponent(params: { cardInfo: CardInfo }) {
       <div className="buttons">
         <CardActions disableSpacing>
           <IconButton aria-label="settings">
-            {!user && user.role == 'ROLE_ADMIN' && <EditIcon />}
+            {user && user.role === 'ROLE_ADMIN' && <EditIcon />}
           </IconButton>
         </CardActions>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites"  onClick={handleAddFavorite}>
-            {!user && <FavoriteIcon />}
+            {user && <FavoriteIcon />}
           </IconButton>
         </CardActions>
       </div>

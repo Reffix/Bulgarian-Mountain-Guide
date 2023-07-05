@@ -10,7 +10,7 @@ import EntityMenu from './entity-menu';
 
 
 
-export default function CardButton({ mountain, mountainInBg }) {
+export default function CardButton({ mountain }) {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
   function showMountainMenu(event: React.MouseEvent<HTMLElement>) {
@@ -28,7 +28,7 @@ export default function CardButton({ mountain, mountainInBg }) {
         aria-expanded={open ? 'true' : undefined}
         onClick={showMountainMenu}>
             <Image className={classes.cardImage}src={mountainIcon}/>
-            <Typography className={classes.cardText}>{mountainInBg.toString()}</Typography>
+            <Typography className={classes.cardText}>{mountain[1].toString()}</Typography>
         </CardActionArea>
       </Card>
       <EntityMenu mountain={mountain} anchorEl={anchorEl} setAnchorEl={setAnchorEl} handleMainClose={null}/>
