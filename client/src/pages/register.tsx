@@ -6,13 +6,15 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { SHA256 } from 'crypto-ts';
+import sha256 from "crypto-js/sha256";
 import React, { FormEvent, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
 import useMutation from '../hooks/useMutation';
 import apiService from '../services/api-service';
 import registerStyles from '../styles/register-styles';
+import NotMatchError from '../errors/not-matching-error';
+import authService, { Roles } from '../services/auth-service';
+import { getValue } from '@mui/system';
 
 export default function SignUp() {
   const classes = registerStyles();
@@ -20,26 +22,28 @@ export default function SignUp() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
   const history = useNavigate();
   const location = useLocation();
 
   const { error, loading, submit } = useMutation(async () => {
-    const hashedPassword = SHA256(password);
-    const hashedConfirmedPassword = SHA256(confirmPassword);
-
-    apiService.post('users', {
-      username,
-      email,
-      hashedPassword,
-      hashedConfirmedPassword,
-    });
+    if(password !== confirmPassword) {
+      throw new NotMatchError();
+    }
+    //const hashedPassword = sha256(password).toString();
+    
+    console.log({
+      userRole : 'ADMIN',
+      username: username,
+      password: password,
+      email: email,});
+    authService.register(username,email,password,"ADMIN");
   });
 
   async function submitForm(event: FormEvent) {
     event.preventDefault();
-
+    setRole(Roles.admin.toString()); 
     await submit();
 
     history(location.state?.data || '/');
@@ -107,7 +111,7 @@ export default function SignUp() {
             className={classes.textField}
           />
           <TextField
-            label="Confirm password"
+            label="Confirm Password"
             variant="filled"
             size="medium"
             type="password"
@@ -143,3 +147,5 @@ export default function SignUp() {
     </Container>
   );
 }
+
+

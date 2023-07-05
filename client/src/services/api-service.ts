@@ -20,17 +20,31 @@ class ApiService {
     });
   }
 
-  async post<T>(path: string, body: { [key: string]: any }) {
+  async post<T>(path: string, body: { [key: string]: any } ) {
     const user = authService.storedUser;
-    return axios.post<T>(`${this.baseUrl}/${path}`, {
-      method: `POST`,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: user ? `Bearer ${user.accessToken}` : null,
-      },
-      body: JSON.stringify(body),
-    });
+    // return axios.post<T>(`${this.baseUrl}/${path}`, {
+    //   method: `POST`,
+    //   headers: {
+    //     'Accept': '*/*',
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Access-Control-Allow-Methods:' : '*',
+    //     'Access-Control-Allow-Headers': '*',
+    //     'Connection':'keep-alive',
+    //     //Authorization: user ? `Bearer ${user.accessToken}` : null,
+    //   },
+    //   data: JSON.stringify(body),
+    // });
+
+    return axios({
+      url: `${this.baseUrl}/${path}`,
+      method: 'POST',
+      data: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' ,
+      Authorization: user ? `Bearer ${user.accessToken}` : null,
+    }
+      
+    })
   }
 
   async delete<T>(path: string) {
@@ -44,6 +58,6 @@ class ApiService {
   }
 }
 
-const apiService = new ApiService('localhost');
+const apiService = new ApiService('http://localhost:8080');
 //process.env.REACT_APP_BASE_URL
 export default apiService;

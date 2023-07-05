@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import useCurrentUser from '../context/auth-context';
 import Logo from '../resources/logo.svg';
@@ -33,6 +33,8 @@ export default function AppHeader() {
   const mountains = Object.entries(Mountains);
   const mountainInfoOpenNested = Boolean(anchorElNested);
   const user = useCurrentUser();
+  const navigate = useNavigate();
+  console.log(user);
   const handleClose = () => {
     setAnchorElNested(null);
   }
@@ -45,6 +47,11 @@ export default function AppHeader() {
 
   function showUserProfile() {
     setAnchorEl(null);
+  }
+
+  function addEntity() {
+    setAnchorEl(null);
+    navigate('/new-entity');
   }
 
   return (
@@ -70,7 +77,7 @@ export default function AppHeader() {
           </Button>
           <Menu anchorEl={anchorElNested} open={mountainInfoOpenNested} onClose={handleClose} >
             {mountains.map((mountain) => (
-              <NestedMenuItem label={mountain[1]} parentMenuOpen={mountainInfoOpenNested} onClick={(event) => setAnchorElNestedMenu(event.currentTarget)} >
+              <NestedMenuItem label={mountain[1].toString()} parentMenuOpen={mountainInfoOpenNested} onClick={(event) => setAnchorElNestedMenu(event.currentTarget)} >
                 <EntityMenu mountain={mountain} anchorEl={anchorElNestedMenu} setAnchorEl={setAnchorElNestedMenu} handleMainClose={handleClose}/>
               </NestedMenuItem>  
             ))}
@@ -104,6 +111,7 @@ export default function AppHeader() {
               open={!!anchorEl}
               onClose={() => setAnchorEl(null)}
             >
+              <MenuItem onClick={addEntity}>Add Entity</MenuItem>
               <MenuItem onClick={showUserProfile}>User Profile</MenuItem>
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>

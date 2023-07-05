@@ -7,30 +7,30 @@ import ParkIcon from '@mui/icons-material/Park';
 import TerrainIcon from '@mui/icons-material/Terrain';
 
 export enum DisplayableEntites {
-  Hotel = 'Хотели',
-  Cottage = 'Хижи',
-  Route = 'Пътеки',
-  Attraction = 'Атракции',
-  Landmark = 'Забележителности',
-  Flora = 'Флора',
-  Fauna = 'Фауна',
+  hotels = 'Хотели' as any,
+  cottages = 'Хижи' as any,
+  routes = 'Пътеки' as any,
+  attractions = 'Атракции' as any,
+  landmarks = 'Забележителности' as any,
+  flora = 'Флора' as any,
+  fauna = 'Фауна' as any,
 }
 
 export function GetIcon(entity: DisplayableEntites) {
   switch (entity) {
-    case DisplayableEntites.Hotel:
+    case DisplayableEntites.hotels:
       return <HotelIcon />;
-    case DisplayableEntites.Cottage:
+    case DisplayableEntites.cottages:
       return <BungalowIcon />;
-    case DisplayableEntites.Route:
+    case DisplayableEntites.routes:
       return <DirectionsWalkIcon />;
-    case DisplayableEntites.Attraction:
+    case DisplayableEntites.attractions:
       return <AttractionsIcon />;
-    case DisplayableEntites.Landmark:
+    case DisplayableEntites.landmarks:
       return <TerrainIcon />;
-    case DisplayableEntites.Flora:
+    case DisplayableEntites.flora:
       return <ParkIcon />;
-    case DisplayableEntites.Fauna:
+    case DisplayableEntites.fauna:
       return <PetsIcon />;
   }
 }
