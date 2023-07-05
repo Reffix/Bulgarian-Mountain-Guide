@@ -17,7 +17,7 @@ import loginStyles from '../styles/login-styles';
 export default function Login() {
   const classes = loginStyles();
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const history = useNavigate();
@@ -25,7 +25,7 @@ export default function Login() {
     error,
     loading,
     submit: submitLogin,
-  } = useMutation(() => authService.login(email, password));
+  } = useMutation(() => authService.login(username, password));
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -54,11 +54,11 @@ export default function Login() {
       <form onSubmit={submit} className={classes.form}>
         <Box display="grid" marginTop={10} gridGap={10}>
           <TextField
-            label="Email"
+            label="Username"
             variant="filled"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            type="username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
             size="medium"
             InputProps={{
               className: classes.multilineColor,

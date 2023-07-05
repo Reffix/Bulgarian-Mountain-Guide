@@ -29,7 +29,7 @@ export default function Home() {
         <Grid item className={classes.buttons}> 
           <Box display='flex' justifyContent="space-between">
             {mountains.map((mountain) => (
-            <CardButton mountain={mountain[0]} mountainInBg={mountain[1].toString()}></CardButton>
+            <CardButton mountain={mountain}></CardButton>
             ))}
           </Box>
         </Grid>

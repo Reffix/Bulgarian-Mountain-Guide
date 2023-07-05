@@ -10,6 +10,12 @@ import AppHeader from './components/app-header';
 import Home from './pages/home';
 import Login from './pages/login';
 import SignUp from './pages/register';
+import { AuthProvider } from './context/auth-context';
+import PrivateRoute from './components/routes/private-route';
+import AddEntity from './pages/add-entity';
+import ListPage from './pages/list-page';
+import { Mountains } from './enums/mountains';
+import { DisplayableEntites } from './enums/displayable-entities';
 
 const theme = createTheme({
 
@@ -50,19 +56,31 @@ const theme = createTheme({
   },
 });
 
+const mountains = Object.entries(Mountains);
+const entities = Object.entries(DisplayableEntites);
+
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <AppHeader />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<SignUp />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+          <AppHeader />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<SignUp />} />
+            {mountains.map((mountain) => (
+              entities.map(entity => (
+                <Route path={`/${entity[0]}/${mountain[0]}/1/10`} element={<ListPage mountain={mountain[0]} entity={entity[0]}/>} />
+              )))
+            )}
+            <Route element={<PrivateRoute/>}/>
+              <Route path='/new-entity/' element={<AddEntity/>}/>
+            </Routes>
+        </Router>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

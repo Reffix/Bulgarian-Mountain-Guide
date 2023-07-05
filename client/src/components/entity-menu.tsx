@@ -1,6 +1,5 @@
 import { Menu, MenuItem } from "@material-ui/core";
 import { DisplayableEntites, GetIcon } from "../enums/displayable-entities";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -26,16 +25,14 @@ export default function EntityMenu({ mountain, anchorEl, setAnchorEl, handleMain
             {entities.map((entity) => (
             <MenuItem key={entity.toString()}
                 onClick={() => {
-                    selectedMountain('/listPage', {
-                        state: { mountain: mountain, entity: entity[0] },
-                    });
+                    selectedMountain(`${entity[0].toString()}/${mountain[0].toString()}/1/10`);
                     setAnchorEl(null);
                     if(handleMainClose) {
                         handleMainClose();
                     }
                 }}
             >
-                {GetIcon(entity[1])} {entity[1].toString()}
+                {GetIcon(entity[1] as DisplayableEntites)} {entity[1].toString()}
             </MenuItem>
             ))}
         </Menu>

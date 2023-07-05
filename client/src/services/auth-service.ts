@@ -1,10 +1,23 @@
+import { JwtPayload } from 'jwt-decode';
 import apiService from './api-service';
+import jwtDecode from 'jwt-decode';
 
 export interface UserAuth {
   id: number;
   username: string;
-  email: string;
+  email?: string;
+  role: string;
   accessToken?: string;
+}
+
+interface Payload extends JwtPayload {
+  id: number,
+  authorities: Array<string>;
+}
+
+export enum Roles {
+  admin = 'ADMIN',
+  user = 'USER',
 }
 
 type UserChangeHandler = (user: UserAuth | null) => void;
@@ -35,18 +48,33 @@ class AuthService {
     this.handler?.(user);
   }
 
-  async login(email: string, password: string) {
-    const authResult = await apiService.post<UserAuth>('auth/login', { email, password });
+  async login(username: string, password: string) {
+    const authResult = await apiService.post<string>('users/login', { username:username, password:password });
 
-    this.setCurrentUser(authResult.data);
+    const auth : Payload =  jwtDecode(authResult.data);
+    let user : UserAuth = {
+      id:auth.id,
+      username: auth.sub,
+      role: auth.authorities[0],
+      accessToken: authResult.data
+    }
+
+    console.log(user);
+
+    this.setCurrentUser(user);
   }
 
   logout() {
     this.setCurrentUser(null);
   }
 
-  async register(username: string, email: string, password: string) {
-    return apiService.post<UserAuth>('users', { username, email, password });
+  async register(username: string, email: string, password: string, role: string) {
+    return apiService.post('users/register/', {
+      userRole: role,
+      username: username,
+      password: password,
+      email: email,
+    });
   }
 }
 
